@@ -1341,44 +1341,93 @@
      LOGIN SCREEN
 ================================================================ -->
 <div id="loginScreen" style="display:flex">
-  <div class="login-box">
+  <div class="login-box" style="max-height:95vh;overflow-y:auto;scrollbar-width:thin">
     <span class="login-logo">💅</span>
     <div class="login-brand">Nail Studio Pro</div>
     <div class="login-sub">by A2K Digital Studio</div>
 
-    <div id="lock-status" class="lock-status" style="display:none">Verificando licencia...</div>
+    <!-- Mensaje de estado (errores / expiración) -->
+    <div id="lock-status" class="lock-status" style="display:none"></div>
 
-    <!-- Device ID — siempre visible para que el cliente lo comparta con el admin -->
-    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(201,149,106,0.25);border-radius:10px;padding:10px 14px;margin:10px 0;text-align:center">
-      <div style="font-size:10px;color:var(--text3);margin-bottom:4px;letter-spacing:1px">ID DE ESTE DISPOSITIVO</div>
-      <div id="lock-device-id" style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--rose);letter-spacing:2px">cargando...</div>
-      <button onclick="navigator.clipboard.writeText(document.getElementById('lock-device-id').textContent).then(function(){this.textContent='✅ Copiado!';var b=this;setTimeout(function(){b.textContent='📋 Copiar Device ID';},2000);}.bind(this))"
-        style="margin-top:6px;background:none;border:1px solid rgba(201,149,106,0.3);color:var(--text2);padding:4px 12px;border-radius:6px;cursor:pointer;font-size:11px">
-        📋 Copiar Device ID
+    <!-- ══════════════════════════════════════════
+         REGISTRO — Primera vez
+    ══════════════════════════════════════════ -->
+    <div id="lock-register" style="display:none">
+      <div style="font-size:12px;color:var(--text2);text-align:center;margin-bottom:14px;line-height:1.6;padding:8px;background:rgba(201,149,106,0.07);border-radius:8px;border:1px solid rgba(201,149,106,0.2)">
+        👋 Primera vez aquí. Crea tu cuenta para comenzar.
+      </div>
+      <div class="form-group">
+        <label style="font-size:10px;color:var(--text3);letter-spacing:1px;font-weight:600">NOMBRE DEL SALÓN</label>
+        <input type="text" id="reg-salon" class="form-input" placeholder="Ej: Nail Studio de María" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label style="font-size:10px;color:var(--text3);letter-spacing:1px;font-weight:600">USUARIO</label>
+        <input type="text" id="reg-usuario" class="form-input" placeholder="Ej: maria" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="form-group">
+        <label style="font-size:10px;color:var(--text3);letter-spacing:1px;font-weight:600">CONTRASEÑA</label>
+        <input type="password" id="reg-pw" class="form-input" placeholder="Mínimo 4 caracteres">
+      </div>
+      <div class="form-group">
+        <label style="font-size:10px;color:var(--text3);letter-spacing:1px;font-weight:600">CONFIRMAR CONTRASEÑA</label>
+        <input type="password" id="reg-pw2" class="form-input" placeholder="Repite la contraseña">
+      </div>
+      <!-- Device ID -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(201,149,106,0.25);border-radius:10px;padding:8px 12px;margin:8px 0;text-align:center">
+        <div style="font-size:10px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">ID DE ESTE DISPOSITIVO</div>
+        <div id="lock-device-id" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--rose);letter-spacing:2px">cargando...</div>
+        <button onclick="navigator.clipboard.writeText(gel('lock-device-id').textContent).then(function(){this.textContent='✅ Copiado!';var b=this;setTimeout(function(){b.textContent='📋 Copiar Device ID';},2000);}.bind(this))"
+          style="margin-top:5px;background:none;border:1px solid rgba(201,149,106,0.3);color:var(--text2);padding:3px 10px;border-radius:6px;cursor:pointer;font-size:11px">📋 Copiar Device ID</button>
+        <div style="font-size:10px;color:var(--text3);margin-top:4px">Comparte este ID con el administrador para obtener tu licencia PRO</div>
+      </div>
+      <div class="form-group">
+        <label style="font-size:10px;color:var(--text3);letter-spacing:1px;font-weight:600">CÓDIGO DE LICENCIA</label>
+        <input type="text" id="reg-lic" class="form-input"
+          placeholder="NS-PRO-XXXXXX-XXXX-XXXX"
+          style="text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:1px"
+          autocomplete="off" spellcheck="false">
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin:6px 0">
+        <div style="flex:1;height:1px;background:var(--border)"></div>
+        <span style="font-size:11px;color:var(--text3)">sin código</span>
+        <div style="flex:1;height:1px;background:var(--border)"></div>
+      </div>
+      <button class="btn btn-ghost" style="width:100%;font-size:12px;margin-bottom:8px" onclick="usarDemoRegistro()">
+        🎯 Prueba gratuita 5 días (sin código)
       </button>
-      <div style="font-size:10px;color:var(--text3);margin-top:5px">Comparte este ID con el administrador para obtener tu licencia</div>
+      <button class="btn btn-primary" style="width:100%;margin-top:4px;font-size:14px;padding:12px" onclick="registrarCuenta()">
+        ✅ Crear Cuenta y Activar
+      </button>
+      <div id="reg-msg" style="font-size:12px;margin-top:10px;text-align:center;line-height:1.5;min-height:18px"></div>
     </div>
 
-    <div id="lock-form">
-      <div class="form-group" style="margin-top:6px">
-        <input type="text" id="lock-code" class="form-input"
-          placeholder="NS-PRO-XXXXXX-XXXX-XXXX  ó  NS-DEMO-XXXXXX-XXXX"
-          style="text-align:center;letter-spacing:1px;font-family:var(--mono);font-size:13px"
-          autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')activarLicencia()">
+    <!-- ══════════════════════════════════════════
+         LOGIN — Sesiones posteriores
+    ══════════════════════════════════════════ -->
+    <div id="lock-login" style="display:none">
+      <div id="login-salon-name" style="font-size:16px;font-weight:700;color:var(--rose);text-align:center;margin-bottom:4px">—</div>
+      <div id="login-lic-info" style="font-size:11px;color:var(--text3);text-align:center;margin-bottom:12px"></div>
+      <!-- Device ID -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(201,149,106,0.25);border-radius:10px;padding:7px 12px;margin-bottom:12px;text-align:center">
+        <div style="font-size:10px;color:var(--text3);margin-bottom:2px;letter-spacing:1px">ID DE ESTE DISPOSITIVO</div>
+        <div id="lock-device-id-login" style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--rose);letter-spacing:2px">-</div>
+        <button onclick="navigator.clipboard.writeText(gel('lock-device-id-login').textContent).then(function(){this.textContent='✅ Copiado!';var b=this;setTimeout(function(){b.textContent='📋 Copiar';},2000);}.bind(this))"
+          style="margin-top:4px;background:none;border:1px solid rgba(201,149,106,0.3);color:var(--text2);padding:2px 10px;border-radius:6px;cursor:pointer;font-size:10px">📋 Copiar</button>
       </div>
-      <button class="btn btn-primary" style="width:100%;margin-top:8px;font-size:14px;padding:12px" onclick="activarLicencia()">
-        🔑 Activar Licencia
-      </button>
-      <div style="display:flex;align-items:center;gap:8px;margin:10px 0">
-        <div style="flex:1;height:1px;background:var(--border)"></div>
-        <span style="font-size:11px;color:var(--text3)">o</span>
-        <div style="flex:1;height:1px;background:var(--border)"></div>
+      <div class="form-group">
+        <label style="font-size:10px;color:var(--text3);letter-spacing:1px;font-weight:600">USUARIO</label>
+        <input type="text" id="login-usuario" class="form-input" placeholder="Tu usuario" autocomplete="off">
       </div>
-      <button class="btn btn-ghost" style="width:100%;font-size:13px" onclick="activarDemo()">
-        🎯 Iniciar prueba gratuita (5 días)
+      <div class="form-group">
+        <label style="font-size:10px;color:var(--text3);letter-spacing:1px;font-weight:600">CONTRASEÑA</label>
+        <input type="password" id="login-pw" class="form-input" placeholder="Tu contraseña" onkeydown="if(event.key==='Enter')iniciarSesion()">
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:12px;font-size:14px;padding:12px" onclick="iniciarSesion()">
+        🔓 Iniciar Sesión
       </button>
-      <div id="lock-msg" style="font-size:12px;color:var(--text3);margin-top:10px;text-align:center;line-height:1.5">Ingresa tu código de licencia o inicia la prueba gratuita de 5 días.</div>
+      <div id="login-msg" style="font-size:12px;margin-top:10px;text-align:center;line-height:1.5;min-height:18px"></div>
     </div>
+
   </div>
 </div>
 
@@ -2468,28 +2517,156 @@ function _verificarFirmada(code){
 // ── INIT IRON LOCK ──
 function _ironLockInit(){
   var devId=getDeviceId();
-  var ls=gel('lock-status'),did=gel('lock-device-id');
-  // Mostrar Device ID en pantalla
-  if(did)did.textContent=devId;
+  // Rellenar Device ID en ambos formularios
+  var did=gel('lock-device-id'); if(did)did.textContent=devId;
+  var did2=gel('lock-device-id-login'); if(did2)did2.textContent=devId;
+
+  var cuenta=DB.get('ns_cuenta');
+
+  if(!cuenta){
+    // ── Primera vez: mostrar REGISTRO ──
+    var rg=gel('lock-register'); if(rg)rg.style.display='block';
+    return;
+  }
+
+  // ── Ya registrado: verificar licencia guardada ──
   var saved=DB.get('licencia_activa');
   if(saved){
-    // Verificar que el device coincide (o es master)
-    if(!saved.master&&saved.device!==devId){
+    if(!saved.master && saved.device!==devId){
+      // Licencia de otro device — pedir de nuevo
       DB.remove('licencia_activa');
+    } else if(saved.tipo==='DEMO'&&saved.expiry&&Date.now()>saved.expiry){
+      // Demo vencida
+      DB.remove('licencia_activa');
+      var ls=gel('lock-status');
+      if(ls){ls.style.display='block';ls.innerHTML='<div style="color:var(--danger);font-weight:700;margin-bottom:6px">⏰ Tu período de prueba (5 días) ha finalizado.</div><div style="color:var(--text2);font-size:12px">Adquiere la licencia PRO para continuar.</div>';}
+      _mostrarLoginForm(cuenta,devId);
+      return;
     } else {
-      // Verificar expiración DEMO
-      if(saved.tipo==='DEMO'&&saved.expiry&&Date.now()>saved.expiry){
-        DB.remove('licencia_activa');
-        if(ls){ls.style.display='block';ls.innerHTML='<div style="color:var(--danger);font-weight:700;margin-bottom:8px">⏰ Tu período de prueba (5 días) ha finalizado.</div><div style="color:var(--text2);font-size:13px">Para continuar usando Nail Studio Pro adquiere la licencia PRO.</div>';}
-        return;
-      }
+      // Licencia válida → entrar directo
       _desbloquearApp(saved);
       return;
     }
   }
-  // Sin licencia — el formulario ya es visible, solo limpiar msg
-  var msg=gel('lock-msg');
-  if(msg)msg.textContent='Ingresa tu código de licencia o inicia la prueba gratuita de 5 días.';
+
+  // Cuenta existe pero sin licencia activa → pedir login (que pedirá también nueva licencia si hace falta)
+  _mostrarLoginForm(cuenta,devId);
+}
+
+function _mostrarLoginForm(cuenta,devId){
+  var ll=gel('lock-login'); if(ll)ll.style.display='block';
+  var sn=gel('login-salon-name'); if(sn)sn.textContent='🏠 '+cuenta.salon;
+  var li=gel('login-lic-info');
+  if(li){
+    var saved=DB.get('licencia_activa');
+    if(saved&&saved.tipo==='DEMO'&&saved.expiry){
+      var rem=Math.max(0,Math.ceil((saved.expiry-Date.now())/(1000*60*60*24)));
+      li.innerHTML='<span style="color:var(--warn)">● DEMO — ⏳ '+rem+' día'+(rem!==1?'s':'')+' restante'+(rem!==1?'s':'')+'</span>';
+    } else if(saved&&saved.tipo==='PRO'){
+      li.innerHTML='<span style="color:var(--gold)">● Licencia PRO activa</span>';
+    } else {
+      li.innerHTML='<span style="color:var(--text3)">Sin licencia activa</span>';
+    }
+  }
+}
+
+// ── REGISTRO (primera vez) ──
+function registrarCuenta(){
+  var salon=(gel('reg-salon')||{}).value||'';
+  var usuario=(gel('reg-usuario')||{}).value||'';
+  var pw=(gel('reg-pw')||{}).value||'';
+  var pw2=(gel('reg-pw2')||{}).value||'';
+  var lic=(gel('reg-lic')||{}).value||'';
+  var msg=gel('reg-msg');
+  function err(t){if(msg){msg.style.color='var(--danger)';msg.textContent=t;}return;}
+  if(!salon.trim())return err('Ingresa el nombre de tu salón.');
+  if(!usuario.trim()||usuario.length<3)return err('El usuario debe tener al menos 3 caracteres.');
+  if(!pw||pw.length<4)return err('La contraseña debe tener al menos 4 caracteres.');
+  if(pw!==pw2)return err('Las contraseñas no coinciden.');
+  // Validar licencia si se ingresó
+  if(lic.trim()){
+    var r=_verificarFirmada(lic);
+    if(!r.valid){if(msg){msg.style.color='var(--danger)';msg.innerHTML=r.msg;}return;}
+    // Guardar cuenta
+    var cuenta={salon:salon.trim(),usuario:usuario.trim().toLowerCase(),pwHash:_hash(pw+_SIGN_SALT+'NSPW'),deviceId:getDeviceId(),ts:Date.now()};
+    DB.set('ns_cuenta',cuenta);
+    // Guardar config con nombre del salón
+    var cfg=getCfg(); cfg.nombre=salon.trim(); saveCfg(cfg);
+    // Activar licencia
+    if(r.tipo==='DEMO'){_activarComoDemo(lic);}
+    else {
+      var licObj={code:lic.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master};
+      DB.set('licencia_activa',licObj);
+      _desbloquearApp(licObj);
+    }
+  } else {
+    if(msg){msg.style.color='var(--text3)';msg.textContent='Ingresa un código de licencia o usa la prueba gratuita.';}
+  }
+}
+
+// ── REGISTRO CON DEMO (sin código) ──
+function usarDemoRegistro(){
+  var salon=(gel('reg-salon')||{}).value||'';
+  var usuario=(gel('reg-usuario')||{}).value||'';
+  var pw=(gel('reg-pw')||{}).value||'';
+  var pw2=(gel('reg-pw2')||{}).value||'';
+  var msg=gel('reg-msg');
+  function err(t){if(msg){msg.style.color='var(--danger)';msg.textContent=t;}return false;}
+  if(!salon.trim()){err('Ingresa el nombre de tu salón.');return;}
+  if(!usuario.trim()||usuario.length<3){err('El usuario debe tener al menos 3 caracteres.');return;}
+  if(!pw||pw.length<4){err('La contraseña debe tener al menos 4 caracteres.');return;}
+  if(pw!==pw2){err('Las contraseñas no coinciden.');return;}
+  // Verificar si ya usó demo
+  var demoUsedKey='ns_demo_used_'+getDeviceId().replace(/-/g,'');
+  var demoUsed=_lsOK?localStorage.getItem(demoUsedKey):null;
+  if(demoUsed&&Date.now()>parseInt(demoUsed)){
+    err('⏰ El período de prueba de este dispositivo ya finalizó. Adquiere la licencia PRO.');return;
+  }
+  // Guardar cuenta
+  var cuenta={salon:salon.trim(),usuario:usuario.trim().toLowerCase(),pwHash:_hash(pw+_SIGN_SALT+'NSPW'),deviceId:getDeviceId(),ts:Date.now()};
+  DB.set('ns_cuenta',cuenta);
+  var cfg=getCfg(); cfg.nombre=salon.trim(); saveCfg(cfg);
+  // Activar demo
+  activarDemo();
+}
+
+// ── INICIO DE SESIÓN (sesiones posteriores) ──
+function iniciarSesion(){
+  var usuario=(gel('login-usuario')||{}).value||'';
+  var pw=(gel('login-pw')||{}).value||'';
+  var msg=gel('login-msg');
+  function err(t){if(msg){msg.style.color='var(--danger)';msg.textContent=t;}return;}
+  var cuenta=DB.get('ns_cuenta');
+  if(!cuenta)return err('No se encontró cuenta registrada.');
+  if(usuario.trim().toLowerCase()!==cuenta.usuario)return err('Usuario incorrecto.');
+  if(_hash(pw+_SIGN_SALT+'NSPW')!==cuenta.pwHash)return err('Contraseña incorrecta.');
+  // Credenciales OK — verificar licencia
+  var saved=DB.get('licencia_activa');
+  if(!saved){
+    // Pedir licencia nueva
+    if(msg){msg.style.color='var(--warn)';msg.innerHTML='⚠️ No hay licencia activa. Ingresa un código:<br>'
+      +'<input id="reactivar-lic" type="text" placeholder="NS-PRO-... o NS-DEMO-..." style="width:100%;margin-top:6px;padding:8px;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,0.06);color:var(--text);font-family:var(--mono);font-size:12px;text-align:center;letter-spacing:1px" autocomplete="off" spellcheck="false">'
+      +'<button onclick="reactivarLicenciaLogin()" style="width:100%;margin-top:6px;padding:8px;border-radius:8px;border:none;background:var(--rose);color:#fff;cursor:pointer;font-weight:700;font-size:13px">🔑 Activar</button>';}
+    return;
+  }
+  if(saved.tipo==='DEMO'&&saved.expiry&&Date.now()>saved.expiry){
+    DB.remove('licencia_activa');
+    return err('⏰ Tu período de prueba finalizó. Contacta al administrador para obtener licencia PRO.');
+  }
+  _desbloquearApp(saved);
+}
+
+function reactivarLicenciaLogin(){
+  var lic=(gel('reactivar-lic')||{}).value||'';
+  var msg=gel('login-msg');
+  if(!lic.trim()){if(msg)msg.textContent='Ingresa un código.';return;}
+  var r=_verificarFirmada(lic);
+  if(!r.valid){if(msg){msg.style.color='var(--danger)';msg.innerHTML=r.msg;}return;}
+  if(r.tipo==='DEMO'){_activarComoDemo(lic);}
+  else{
+    var licObj={code:lic.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master};
+    DB.set('licencia_activa',licObj);_desbloquearApp(licObj);
+  }
 }
 
 // ── ACTIVAR PRO o DEMO ──
@@ -2577,18 +2754,15 @@ function _desbloquearApp(lic){
       if(Date.now()>lic.expiry){
         clearInterval(_demoWatchdog);
         DB.remove('licencia_activa');
-        // Forzar logout
-        var appEl=gel('app'),lsEl=gel('loginScreen');
-        if(appEl)appEl.style.setProperty('display','none','important');
-        if(lsEl){
-          lsEl.style.setProperty('display','flex','important');
-          var lss=gel('lock-status');
-          if(lss)lss.innerHTML='<div style="color:var(--danger);font-weight:700;margin-bottom:8px">⏰ Tu período de prueba ha finalizado.</div><div style="color:var(--text2);font-size:13px">Adquiere la licencia PRO para continuar.</div>';
-          var lff=gel('lock-form');if(lff)lff.style.display='block';
-          var lc=gel('lock-code');if(lc)lc.value='';
-        }
+        _volverAlLogin();
+        // Mostrar mensaje de expiración
+        setTimeout(function(){
+          var ls=gel('lock-status');
+          if(ls){ls.style.display='block';ls.innerHTML='<div style="color:var(--danger);font-weight:700;margin-bottom:6px">⏰ Tu período de prueba (5 días) ha finalizado.</div><div style="color:var(--text2);font-size:12px">Adquiere la licencia PRO para continuar.</div>';}
+          var li=gel('login-lic-info');if(li)li.innerHTML='<span style="color:var(--danger)">● Demo vencida</span>';
+        },100);
       }
-    },60000); // cada 60 segundos
+    },60000);
   }
   _appInit();
 }
@@ -2676,13 +2850,12 @@ function openModal(id){var el=gel(id);if(el){el.style.setProperty('display','fle
 function closeModal(id){var el=gel(id);if(!el)return;el.style.setProperty('display','none','important');el.classList.remove('open');}
 
 function cerrarSesion(){
-  // Modal de confirmación
   var mo=document.createElement('div');
   mo.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:99998;display:flex;align-items:center;justify-content:center';
   mo.innerHTML='<div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px 32px;max-width:340px;width:90%;text-align:center">'
     +'<div style="font-size:40px;margin-bottom:12px">🚪</div>'
     +'<div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:8px">¿Cerrar Sesión?</div>'
-    +'<div style="font-size:13px;color:var(--text2);margin-bottom:22px">Se cerrará la sesión actual y volverás a la pantalla de licencia.</div>'
+    +'<div style="font-size:13px;color:var(--text2);margin-bottom:22px">Deberás ingresar tu usuario y contraseña para volver a entrar.</div>'
     +'<div style="display:flex;gap:10px;justify-content:center">'
     +'<button id="_btn_cancel_logout" style="padding:9px 22px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-size:14px">Cancelar</button>'
     +'<button id="_btn_confirm_logout" style="padding:9px 22px;border-radius:10px;border:none;background:var(--fuchsia);color:#fff;cursor:pointer;font-size:14px;font-weight:700">Cerrar Sesión</button>'
@@ -2691,10 +2864,31 @@ function cerrarSesion(){
   document.getElementById('_btn_cancel_logout').onclick=function(){document.body.removeChild(mo);};
   document.getElementById('_btn_confirm_logout').onclick=function(){
     document.body.removeChild(mo);
-    var appEl=gel('app'),lsEl=gel('loginScreen');
-    if(appEl)appEl.style.setProperty('display','none','important');
-    if(lsEl)lsEl.style.setProperty('display','flex','important');
+    _volverAlLogin();
   };
+}
+
+function _volverAlLogin(){
+  var appEl=gel('app'),lsEl=gel('loginScreen');
+  if(appEl)appEl.style.setProperty('display','none','important');
+  if(lsEl)lsEl.style.setProperty('display','flex','important');
+  // Limpiar y mostrar form correcto
+  var rg=gel('lock-register'),ll=gel('lock-login'),ls=gel('lock-status');
+  if(rg)rg.style.display='none';
+  if(ll)ll.style.display='none';
+  if(ls)ls.style.display='none';
+  var devId=getDeviceId();
+  var did2=gel('lock-device-id-login'); if(did2)did2.textContent=devId;
+  var cuenta=DB.get('ns_cuenta');
+  if(cuenta){
+    _mostrarLoginForm(cuenta,devId);
+    // Limpiar campos
+    var lu=gel('login-usuario'),lp=gel('login-pw'),lm=gel('login-msg');
+    if(lu)lu.value=''; if(lp)lp.value=''; if(lm)lm.textContent='';
+  } else {
+    var did=gel('lock-device-id'); if(did)did.textContent=devId;
+    if(rg)rg.style.display='block';
+  }
 }
 
 // ── CONFIG ──
