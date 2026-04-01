@@ -1303,7 +1303,36 @@
       .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
       .agenda-semana { grid-template-columns: 40px repeat(3,1fr); }
     }
-
+  /* ═══ POS ═══ */
+  .pos-layout{display:grid;grid-template-columns:1fr 370px;gap:16px;height:calc(100vh - 130px);overflow:hidden}
+  .pos-grid-panel{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+  .pos-cart-panel{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;overflow:hidden}
+  .pos-cat-btn{padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-size:12px;transition:all .2s}
+  .pos-cat-btn.active{background:linear-gradient(135deg,var(--fuchsia),var(--lila));color:#fff;border-color:transparent}
+  .pos-servicios-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;overflow-y:auto;padding-bottom:8px}
+  .pos-serv-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;transition:all .2s;position:relative}
+  .pos-serv-card:hover{border-color:var(--fuchsia);transform:translateY(-2px);box-shadow:0 4px 16px rgba(214,51,132,0.2)}
+  .ps-emoji{font-size:26px;margin-bottom:5px}.ps-nombre{font-size:11px;font-weight:600;line-height:1.3;margin-bottom:4px}.ps-precio{font-size:13px;font-weight:700;color:var(--gold);font-family:var(--mono)}
+  .ps-badge{position:absolute;top:5px;right:5px;background:var(--fuchsia);color:#fff;border-radius:50%;width:19px;height:19px;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .pos-cart-items{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:7px;min-height:0}
+  .pos-cart-item{display:flex;align-items:center;gap:8px;padding:7px 9px;background:rgba(255,255,255,0.03);border-radius:10px;border:1px solid var(--border)}
+  .pci-info{flex:1;min-width:0}.pci-nombre{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pci-precio{font-size:11px;color:var(--gold);font-family:var(--mono)}
+  .pci-qty{display:flex;align-items:center;gap:3px}.pci-qty button{background:rgba(214,51,132,0.15);border:1px solid var(--fuchsia);color:var(--fuchsia);border-radius:5px;width:20px;height:20px;cursor:pointer;font-size:13px;line-height:1}
+  .pci-qty span{font-size:13px;font-weight:700;min-width:18px;text-align:center;font-family:var(--mono)}
+  .pos-totales{border-top:1px solid var(--border);padding-top:8px}
+  .pos-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;font-size:12px;color:var(--text2)}
+  .pos-total-row.grand{font-size:17px;font-weight:700;color:var(--text);margin-top:4px}.pos-total-row.grand span:last-child{color:var(--gold);font-family:var(--mono)}
+  .pos-metodos{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px}
+  .pos-met-btn{padding:7px 4px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-size:11px;text-align:center;transition:all .2s}
+  .pos-met-btn.active{background:linear-gradient(135deg,var(--fuchsia),var(--lila));color:#fff;border-color:transparent;font-weight:700}
+  .pos-actions{display:flex;gap:8px;margin-top:6px}
+  .pos-paused-bar{display:none;background:rgba(244,201,122,0.08);border:1px solid rgba(244,201,122,0.3);border-radius:10px;padding:7px 12px;margin-bottom:10px}
+  .pos-paused-item{display:inline-flex;align-items:center;gap:5px;background:rgba(244,201,122,0.15);border-radius:20px;padding:3px 10px;margin:2px;cursor:pointer;font-size:12px;color:var(--gold)}
+  .metodo-pago-btn.metodo-selected{background:linear-gradient(135deg,var(--fuchsia),var(--lila))!important;color:#fff!important;border-color:var(--fuchsia)!important}
+  .emoji-opt{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-size:20px;transition:all .2s}
+  .emoji-opt.selected{background:rgba(214,51,132,0.25)!important;border-color:var(--fuchsia)!important;transform:scale(1.1)}
+  #qr-video{width:100%;border-radius:12px;max-height:280px;object-fit:cover}
+  @media(max-width:768px){.pos-layout{grid-template-columns:1fr;height:auto}}
   </style>
 </head>
 <body>
@@ -1358,6 +1387,11 @@
       <div class="nav-item active" onclick="showPage('dashboard',this)">
         <span class="nav-icon">🏠</span>
         <span class="nav-label">Dashboard</span>
+      </div>
+
+      <div class="nav-item" onclick="showPage('pos',this)" style="background:linear-gradient(135deg,rgba(214,51,132,0.12),rgba(179,136,255,0.12));border:1px solid rgba(214,51,132,0.25);border-radius:10px;margin:4px 0">
+        <span class="nav-icon">💳</span>
+        <span class="nav-label" style="color:var(--fuchsia);font-weight:700">Cobro / POS</span>
       </div>
 
       <div class="nav-item" onclick="showPage('agenda',this)">
@@ -1429,6 +1463,80 @@
 
     <!-- PAGES -->
     <div class="pages-container">
+
+      <!-- ===== POS / COBRO ===== -->
+      <div class="page" id="page-pos">
+        <!-- Barra de cobros pausados -->
+        <div id="ns-paused-bar" class="pos-paused-bar">
+          <span style="font-size:12px;color:var(--gold);font-weight:700">⏸️ Cobros pausados:</span>
+          <span id="ns-paused-list"></span>
+        </div>
+        <div class="pos-layout">
+          <!-- IZQUIERDA: catálogo de servicios -->
+          <div class="pos-grid-panel">
+            <div class="pos-search-bar">
+              <input type="text" class="form-input" id="pos-search" placeholder="🔍 Buscar servicio..." oninput="renderPosGrid()" style="flex:1">
+              <button class="btn btn-ghost btn-sm" onclick="abrirQRScanner()" title="Escanear QR">📷 QR</button>
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap" id="pos-cat-filters">
+              <button class="pos-cat-btn active" data-cat="" onclick="setPosCategoria('',this)">Todos</button>
+            </div>
+            <div class="pos-servicios-grid" id="pos-servicios-grid"></div>
+          </div>
+          <!-- DERECHA: carrito -->
+          <div class="pos-cart-panel">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-weight:700;font-size:14px">🛒 Carrito</span>
+              <button class="btn btn-ghost btn-sm" onclick="limpiarCarritoNS()" style="font-size:11px">🗑️ Limpiar</button>
+            </div>
+            <!-- Clienta -->
+            <div style="display:flex;gap:6px;align-items:center">
+              <select class="form-select" id="pos-clienta" style="flex:1;font-size:12px">
+                <option value="">👤 Cobro rápido (sin clienta)</option>
+              </select>
+              <button class="btn btn-ghost btn-sm" onclick="abrirModalClienta(null)" title="Nueva clienta" style="padding:6px 8px">➕</button>
+            </div>
+            <!-- Items del carrito -->
+            <div class="pos-cart-items" id="pos-cart-items">
+              <div style="text-align:center;color:var(--text3);padding:28px 0;font-size:13px">💅 Selecciona servicios del catálogo</div>
+            </div>
+            <!-- Totales -->
+            <div class="pos-totales">
+              <div class="pos-total-row"><span>Subtotal:</span><span id="pos-subtotal">$0.00</span></div>
+              <div class="pos-total-row" id="pos-row-desc" style="display:none"><span style="color:var(--success)">Descuento:</span><span id="pos-desc-monto" style="color:var(--success)">-$0.00</span></div>
+              <div class="pos-total-row grand"><span>TOTAL:</span><span id="pos-total">$0.00</span></div>
+              <div style="font-size:11px;color:var(--text3);text-align:right;margin-top:2px" id="pos-total-bs">≈ Bs 0.00</div>
+            </div>
+            <!-- Descuento rápido -->
+            <div style="display:flex;gap:5px;align-items:center">
+              <span style="font-size:11px;color:var(--text2);white-space:nowrap">Descuento %:</span>
+              <input type="number" class="form-input" id="pos-desc-pct" min="0" max="100" value="0" oninput="recalcPOS()" style="width:60px;font-size:12px;padding:4px 8px">
+              <button onclick="setPosDesc(10)" style="background:none;border:1px solid var(--border);padding:3px 7px;border-radius:6px;font-size:11px;cursor:pointer;color:var(--text2)">10%</button>
+              <button onclick="setPosDesc(15)" style="background:none;border:1px solid var(--border);padding:3px 7px;border-radius:6px;font-size:11px;cursor:pointer;color:var(--text2)">15%</button>
+              <button onclick="setPosDesc(20)" style="background:none;border:1px solid var(--border);padding:3px 7px;border-radius:6px;font-size:11px;cursor:pointer;color:var(--text2)">20%</button>
+            </div>
+            <!-- Métodos de pago -->
+            <div style="font-size:11px;font-weight:600;color:var(--text2)">Método de pago:</div>
+            <div class="pos-metodos">
+              <button class="pos-met-btn" onclick="selPosMetodo(this,'Efectivo $')">💵 Efectivo $</button>
+              <button class="pos-met-btn" onclick="selPosMetodo(this,'Zelle')">💙 Zelle</button>
+              <button class="pos-met-btn" onclick="selPosMetodo(this,'Binance Pay')">🟡 Binance</button>
+              <button class="pos-met-btn" onclick="selPosMetodo(this,'Zinli')">💜 Zinli</button>
+              <button class="pos-met-btn" onclick="selPosMetodo(this,'Bybit Pay')">🔶 Bybit</button>
+              <button class="pos-met-btn" onclick="selPosMetodo(this,'Efectivo Bs')">🏦 Bs Cash</button>
+              <button class="pos-met-btn" onclick="selPosMetodo(this,'Pago Móvil')">📱 Pago Móvil</button>
+              <button class="pos-met-btn" onclick="selPosMetodo(this,'Punto')">💳 Punto</button>
+              <button class="pos-met-btn" onclick="selPosMetodo(this,'Transfer Bs')">🏛️ Transfer Bs</button>
+              <button class="pos-met-btn" onclick="selPosMetodo(this,'Fiado')">📝 Fiado</button>
+            </div>
+            <!-- Botones acción -->
+            <div class="pos-actions">
+              <button class="btn btn-ghost" style="flex:1;font-size:12px" onclick="pausarCobroNS()">⏸️ Pausar</button>
+              <button class="btn btn-primary" style="flex:2;font-size:14px;font-weight:700" onclick="confirmarCobroNS()">✅ Cobrar</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /page-pos -->
 
       <!-- ===== DASHBOARD ===== -->
       <div class="page active" id="page-dashboard">
@@ -2212,6 +2320,24 @@
   </div>
 </div>
 
+<!-- MODAL QR SCANNER -->
+<div class="modal-overlay" id="modalQR">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📷 Escanear QR</div>
+      <button class="btn-close" onclick="cerrarQRScanner()">✕</button>
+    </div>
+    <div class="modal-body">
+      <video id="qr-video" autoplay playsinline muted style="width:100%;border-radius:12px;max-height:280px;object-fit:cover;background:#000"></video>
+      <div style="text-align:center;margin-top:10px;color:var(--text2);font-size:13px">Apunta la cámara al código QR del servicio o clienta</div>
+      <div id="qr-result" style="margin-top:8px;text-align:center;color:var(--fuchsia);font-weight:700;font-size:14px;min-height:20px"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="cerrarQRScanner()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST CONTAINER -->
 <div id="toast-container"></div>
 
@@ -2434,9 +2560,9 @@ function showPage(page,el){
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   if(el)el.classList.add('active');
   else{var ni=document.querySelector('.nav-item[data-page="'+page+'"]');if(ni)ni.classList.add('active');}
-  var titles={dashboard:'Dashboard',agenda:'Agenda',servicios:'Servicios',clientas:'Clientas',materiales:'Materiales',caja:'Caja',reportes:'Reportes',config:'Configuracion'};
+  var titles={pos:'💳 Cobro / POS',dashboard:'🏠 Dashboard',agenda:'📅 Agenda',servicios:'💅 Servicios',clientas:'👩‍🦰 Clientas',materiales:'🧴 Materiales',caja:'💰 Caja',reportes:'📊 Reportes',config:'⚙️ Configuración'};
   set$('topbar-title',titles[page]||page);
-  var renders={dashboard:renderDashboard,agenda:renderAgenda,servicios:renderServicios,clientas:renderClientas,materiales:renderMateriales,caja:renderCaja,reportes:renderReportes,config:renderConfig};
+  var renders={pos:renderPosGrid,dashboard:renderDashboard,agenda:renderAgenda,servicios:renderServicios,clientas:renderClientas,materiales:renderMateriales,caja:renderCaja,reportes:renderReportes,config:renderConfig};
   if(renders[page])renders[page]();
 }
 
@@ -3106,6 +3232,210 @@ function renderReportes(){
       '</tr>';
     }).join(''):'<tr><td colspan="4" style="text-align:center;color:var(--text3);padding:30px">Sin ventas en el periodo</td></tr>';
   }
+}
+
+// ═══════════════════════════════════════════════
+// POS — COBRO RÁPIDO
+// ═══════════════════════════════════════════════
+var _nsCart=[];
+var _nsPausados=[];
+var _nsMetodo='';
+var _nsQRStream=null;
+
+function renderPosGrid(){
+  var q=(gel('pos-search')||{}).value||'';
+  var servs=DB.get('servicios')||[];
+  var activeCat=document.querySelector('.pos-cat-btn.active');
+  var cat=activeCat?activeCat.getAttribute('data-cat')||'':'';
+
+  // Build category buttons once
+  var filtersEl=gel('pos-cat-filters');
+  if(filtersEl&&filtersEl.querySelectorAll('.pos-cat-btn').length<=1){
+    var cats=[...new Set(servs.map(function(s){return s.cat;}))];
+    cats.forEach(function(c){
+      var btn=document.createElement('button');
+      btn.className='pos-cat-btn';btn.setAttribute('data-cat',c);btn.textContent=c;
+      btn.onclick=function(){setPosCategoria(c,btn);};
+      filtersEl.appendChild(btn);
+    });
+  }
+
+  // Populate clienta dropdown once
+  var clSel=gel('pos-clienta');
+  if(clSel&&clSel.options.length<=1){
+    var cls=DB.get('clientas')||[];
+    cls.forEach(function(c){
+      var o=document.createElement('option');o.value=c.id;o.textContent=c.nombre;
+      clSel.appendChild(o);
+    });
+  }
+
+  var f=servs.filter(function(s){
+    return(!cat||s.cat===cat)&&(!q||s.nombre.toLowerCase().includes(q.toLowerCase()));
+  });
+  var grid=gel('pos-servicios-grid');if(!grid)return;
+  grid.innerHTML=f.length?f.map(function(s){
+    var ci=_nsCart.find(function(c){return c.id===s.id;});
+    return'<div class="pos-serv-card" onclick="addPOS(\''+s.id+'\')">'+
+      (ci?'<div class="ps-badge">'+ci.qty+'</div>':'')+
+      '<div class="ps-emoji">'+s.emoji+'</div>'+
+      '<div class="ps-nombre">'+s.nombre+'</div>'+
+      '<div class="ps-precio">'+fmt$(s.precio)+'</div>'+
+    '</div>';
+  }).join(''):'<div style="grid-column:1/-1;text-align:center;color:var(--text3);padding:40px">Sin servicios</div>';
+}
+
+function setPosCategoria(cat,el){
+  document.querySelectorAll('.pos-cat-btn').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');renderPosGrid();
+}
+
+function addPOS(id){
+  var servs=DB.get('servicios')||[];
+  var s=servs.find(function(x){return x.id===id;});if(!s)return;
+  var item=_nsCart.find(function(c){return c.id===id;});
+  if(item)item.qty++;
+  else _nsCart.push({id:id,emoji:s.emoji,nombre:s.nombre,precio:s.precio,qty:1});
+  recalcPOS();renderCartNS();renderPosGrid();
+}
+
+function removePOS(id){
+  var item=_nsCart.find(function(c){return c.id===id;});if(!item)return;
+  if(item.qty>1)item.qty--;else _nsCart=_nsCart.filter(function(c){return c.id!==id;});
+  recalcPOS();renderCartNS();renderPosGrid();
+}
+
+function renderCartNS(){
+  var el=gel('pos-cart-items');if(!el)return;
+  if(!_nsCart.length){el.innerHTML='<div style="text-align:center;color:var(--text3);padding:28px 0;font-size:13px">💅 Selecciona servicios del catálogo</div>';return;}
+  el.innerHTML=_nsCart.map(function(item){
+    return'<div class="pos-cart-item">'+
+      '<span style="font-size:18px">'+item.emoji+'</span>'+
+      '<div class="pci-info">'+
+        '<div class="pci-nombre">'+item.nombre+'</div>'+
+        '<div class="pci-precio">'+fmt$(item.precio*item.qty)+'</div>'+
+      '</div>'+
+      '<div class="pci-qty">'+
+        '<button onclick="removePOS(\''+item.id+'\')">−</button>'+
+        '<span>'+item.qty+'</span>'+
+        '<button onclick="addPOS(\''+item.id+'\')">+</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function recalcPOS(){
+  var sub=_nsCart.reduce(function(s,i){return s+(i.precio*i.qty);},0);
+  var pct=parseFloat((gel('pos-desc-pct')||{}).value)||0;
+  var desc=sub*pct/100;var total=sub-desc;
+  var cfg=getCfg();
+  set$('pos-subtotal',fmt$(sub));set$('pos-total',fmt$(total));
+  set$('pos-total-bs','≈ Bs '+(total*(cfg.tasa||40)).toFixed(2));
+  var rd=gel('pos-row-desc');if(rd)rd.style.display=desc>0?'flex':'none';
+  set$('pos-desc-monto','-'+fmt$(desc));
+}
+
+function setPosDesc(pct){var el=gel('pos-desc-pct');if(el)el.value=pct;recalcPOS();}
+
+function selPosMetodo(el,metodo){
+  document.querySelectorAll('.pos-met-btn').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');_nsMetodo=metodo;
+}
+
+function limpiarCarritoNS(){
+  if(_nsCart.length&&!confirm('¿Limpiar el carrito?'))return;
+  _nsCart=[];_nsMetodo='';
+  document.querySelectorAll('.pos-met-btn').forEach(function(b){b.classList.remove('active');});
+  var p=gel('pos-desc-pct');if(p)p.value=0;
+  recalcPOS();renderCartNS();renderPosGrid();
+}
+
+function confirmarCobroNS(){
+  if(!_nsCart.length){showToast('Agrega al menos un servicio','warn');return;}
+  if(!_nsMetodo){showToast('Selecciona un método de pago','warn');return;}
+  var pct=parseFloat((gel('pos-desc-pct')||{}).value)||0;
+  var sub=_nsCart.reduce(function(s,i){return s+(i.precio*i.qty);},0);
+  var total=sub*(1-pct/100);
+  var clientaId=(gel('pos-clienta')||{}).value||'';
+  var venta={id:uid(),items:_nsCart.map(function(i){return{id:i.id,nombre:i.nombre,emoji:i.emoji,precio:i.precio,qty:i.qty};}),subtotal:sub,descuentoPct:pct,total:total,metodo:_nsMetodo,clientaId:clientaId,fecha:todayStr(),ts:Date.now()};
+  var ventas=DB.get('ventas')||[];ventas.push(venta);DB.set('ventas',ventas);
+  var caja=DB.get('caja_actual');
+  if(caja&&caja.abierta){caja.movimientos=caja.movimientos||[];caja.movimientos.push({tipo:'entrada',desc:_nsMetodo+' — POS',monto:total,ts:Date.now()});DB.set('caja_actual',caja);}
+  showToast('✅ Cobro — '+fmt$(total)+' · '+_nsMetodo,'success');
+  limpiarCarritoNS();renderDashboard();
+}
+
+// PAUSAR / REANUDAR
+function pausarCobroNS(){
+  if(!_nsCart.length){showToast('El carrito está vacío','warn');return;}
+  var clientaId=(gel('pos-clienta')||{}).value||'';
+  var cls=DB.get('clientas')||[];var cli=cls.find(function(c){return c.id===clientaId;});
+  _nsPausados.push({id:uid(),items:JSON.parse(JSON.stringify(_nsCart)),clientaId:clientaId,label:cli?cli.nombre:'Cobro #'+(+new Date).toString(36).slice(-3).toUpperCase(),ts:Date.now()});
+  _nsCart=[];_nsMetodo='';
+  document.querySelectorAll('.pos-met-btn').forEach(function(b){b.classList.remove('active');});
+  recalcPOS();renderCartNS();renderPosGrid();renderPausadosNS();
+  showToast('⏸️ Cobro pausado','info');
+}
+
+function reanudarCobroNS(id){
+  var p=_nsPausados.find(function(x){return x.id===id;});if(!p)return;
+  if(_nsCart.length&&!confirm('¿Reemplazar el carrito actual?'))return;
+  _nsCart=JSON.parse(JSON.stringify(p.items));
+  _nsPausados=_nsPausados.filter(function(x){return x.id!==id;});
+  var clSel=gel('pos-clienta');if(clSel&&p.clientaId)clSel.value=p.clientaId;
+  recalcPOS();renderCartNS();renderPosGrid();renderPausadosNS();
+  showToast('▶️ Cobro reanudado','success');
+}
+
+function descartarPausadoNS(id){_nsPausados=_nsPausados.filter(function(x){return x.id!==id;});renderPausadosNS();}
+
+function renderPausadosNS(){
+  var bar=gel('ns-paused-bar');var list=gel('ns-paused-list');if(!bar||!list)return;
+  if(!_nsPausados.length){bar.style.display='none';return;}
+  bar.style.display='block';
+  list.innerHTML=_nsPausados.map(function(p){
+    return'<span class="pos-paused-item" onclick="reanudarCobroNS(\''+p.id+'\')">▶️ '+p.label+
+      '<button onclick="event.stopPropagation();descartarPausadoNS(\''+p.id+'\')" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:12px;padding:0 2px;margin-left:2px">✕</button>'+
+    '</span>';
+  }).join('');
+}
+
+// QR SCANNER
+function abrirQRScanner(){
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){showToast('Cámara no disponible','warn');return;}
+  openModal('modalQR');
+  navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}})
+    .then(function(stream){
+      _nsQRStream=stream;
+      var v=gel('qr-video');v.srcObject=stream;v.play();
+      _scanQRLoop(v);
+    })
+    .catch(function(){showToast('No se pudo acceder a la cámara','danger');closeModal('modalQR');});
+}
+
+function _scanQRLoop(video){
+  if(!video||video.paused||video.ended)return;
+  if(typeof BarcodeDetector!=='undefined'){
+    var bd=new BarcodeDetector({formats:['qr_code']});
+    bd.detect(video).then(function(codes){
+      if(!codes.length)return;
+      var raw=codes[0].rawValue;
+      set$('qr-result','✅ QR: '+raw);
+      var servs=DB.get('servicios')||[];
+      var s=servs.find(function(x){return x.id===raw||x.nombre.toLowerCase()===raw.toLowerCase();});
+      if(s){cerrarQRScanner();addPOS(s.id);showToast('💅 '+s.nombre+' agregado','success');return;}
+      var cls=DB.get('clientas')||[];
+      var cli=cls.find(function(x){return x.id===raw;});
+      if(cli){cerrarQRScanner();var cs=gel('pos-clienta');if(cs)cs.value=cli.id;showToast('👤 '+cli.nombre+' seleccionada','success');return;}
+      showToast('QR no reconocido','warn');cerrarQRScanner();
+    }).catch(function(){});
+  }
+  setTimeout(function(){_scanQRLoop(video);},600);
+}
+
+function cerrarQRScanner(){
+  if(_nsQRStream){_nsQRStream.getTracks().forEach(function(t){t.stop();});_nsQRStream=null;}
+  closeModal('modalQR');
 }
 
 // ── STARTUP ──
