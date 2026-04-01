@@ -1458,6 +1458,9 @@
         <div>Licencia: <span id="lic-tipo-sidebar">—</span></div>
         <div id="lic-expira-sidebar" style="font-size:10px;margin-top:2px"></div>
       </div>
+      <button onclick="cerrarSesion()" style="width:100%;margin-top:10px;padding:9px;background:rgba(214,51,132,0.12);border:1px solid rgba(214,51,132,0.35);border-radius:10px;color:var(--fuchsia);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(214,51,132,0.22)'" onmouseout="this.style.background='rgba(214,51,132,0.12)'">
+        🚪 Cerrar Sesión
+      </button>
     </div>
   </aside>
 
@@ -2671,6 +2674,28 @@ function showPage(page,el){
 
 function openModal(id){var el=gel(id);if(el){el.style.setProperty('display','flex','important');el.classList.add('open');}}
 function closeModal(id){var el=gel(id);if(!el)return;el.style.setProperty('display','none','important');el.classList.remove('open');}
+
+function cerrarSesion(){
+  // Modal de confirmación
+  var mo=document.createElement('div');
+  mo.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:99998;display:flex;align-items:center;justify-content:center';
+  mo.innerHTML='<div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px 32px;max-width:340px;width:90%;text-align:center">'
+    +'<div style="font-size:40px;margin-bottom:12px">🚪</div>'
+    +'<div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:8px">¿Cerrar Sesión?</div>'
+    +'<div style="font-size:13px;color:var(--text2);margin-bottom:22px">Se cerrará la sesión actual y volverás a la pantalla de licencia.</div>'
+    +'<div style="display:flex;gap:10px;justify-content:center">'
+    +'<button id="_btn_cancel_logout" style="padding:9px 22px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-size:14px">Cancelar</button>'
+    +'<button id="_btn_confirm_logout" style="padding:9px 22px;border-radius:10px;border:none;background:var(--fuchsia);color:#fff;cursor:pointer;font-size:14px;font-weight:700">Cerrar Sesión</button>'
+    +'</div></div>';
+  document.body.appendChild(mo);
+  document.getElementById('_btn_cancel_logout').onclick=function(){document.body.removeChild(mo);};
+  document.getElementById('_btn_confirm_logout').onclick=function(){
+    document.body.removeChild(mo);
+    var appEl=gel('app'),lsEl=gel('loginScreen');
+    if(appEl)appEl.style.setProperty('display','none','important');
+    if(lsEl)lsEl.style.setProperty('display','flex','important');
+  };
+}
 
 // ── CONFIG ──
 var _CFG_KEY='config';
