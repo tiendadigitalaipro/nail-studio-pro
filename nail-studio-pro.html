@@ -1759,9 +1759,14 @@
           </div>
           <select class="form-select" id="serv-cat-filtro" style="max-width:200px" onchange="filtrarServicios()">
             <option value="">Todas las categorías</option>
+            <option>Manicura</option>
+            <option>Pedicura</option>
             <option>Uñas Acrílicas</option>
             <option>Acrigel</option>
-            <option>Semipermanente</option>
+            <option>Sistema Dual</option>
+            <option>Esmaltado y Semi Permanente</option>
+            <option>Esmaltado Tradicional</option>
+            <option>Gel</option>
             <option>Polygel</option>
             <option>Nail Art</option>
             <option>Retoque</option>
@@ -2181,9 +2186,14 @@
           <label class="form-label">Categoría *</label>
           <select class="form-select" id="serv-categoria">
             <option value="">Seleccionar...</option>
+            <option>Manicura</option>
+            <option>Pedicura</option>
             <option>Uñas Acrílicas</option>
             <option>Acrigel</option>
-            <option>Semipermanente</option>
+            <option>Sistema Dual</option>
+            <option>Esmaltado y Semi Permanente</option>
+            <option>Esmaltado Tradicional</option>
+            <option>Gel</option>
             <option>Polygel</option>
             <option>Nail Art</option>
             <option>Retoque</option>
@@ -3127,19 +3137,63 @@ function guardarConfig(){
 
 // ── DEFAULT DATA + SERVICIOS ──
 var SERVICIOS_DEFAULT=[
-  {id:'s1',emoji:'💅',nombre:'Unas Acrilicas Full',cat:'Unas Acrilicas',precio:25,duracion:90,desc:'Extensiones completas en polvo acrilico'},
-  {id:'s2',emoji:'✨',nombre:'Acrigel Full',cat:'Acrigel',precio:28,duracion:90,desc:'Extensiones con sistema acrigel'},
-  {id:'s3',emoji:'💎',nombre:'Semipermanente',cat:'Semipermanente',precio:18,duracion:60,desc:'Esmalte semipermanente con cura UV'},
-  {id:'s4',emoji:'🌸',nombre:'Polygel Full',cat:'Polygel',precio:30,duracion:100,desc:'Extensiones con polygel'},
-  {id:'s5',emoji:'🎨',nombre:'Nail Art (diseno)',cat:'Nail Art',precio:10,duracion:30,desc:'Disenos artisticos por una o set'},
-  {id:'s6',emoji:'🔄',nombre:'Retoque Acrilico',cat:'Retoque',precio:15,duracion:60,desc:'Relleno y mantenimiento acrilico'},
-  {id:'s7',emoji:'🛁',nombre:'Spa de Unas',cat:'Spa Unas',precio:12,duracion:45,desc:'Hidratacion, exfoliacion y masaje de manos'},
-  {id:'s8',emoji:'🌺',nombre:'Semipermanente Pies',cat:'Semipermanente',precio:15,duracion:50,desc:'Semipermanente en pies'}
+  // ── MANICURA ──
+  {id:'s1',emoji:'💅',nombre:'Manicura Clásica',cat:'Manicura',precio:10,duracion:40,desc:'Limpieza, corte y limado de uñas'},
+  {id:'s2',emoji:'✨',nombre:'Manicura con Esmaltado Tradicional',cat:'Manicura',precio:12,duracion:50,desc:'Manicura clásica + esmalte tradicional al gusto'},
+  {id:'s3',emoji:'💎',nombre:'Manicura con Semi Permanente',cat:'Manicura',precio:18,duracion:60,desc:'Manicura clásica + esmalte semipermanente con cura UV/LED'},
+  {id:'s4',emoji:'💅',nombre:'Manicura Spa Premium',cat:'Manicura',precio:22,duracion:60,desc:'Manicura completa con hidratación, exfoliación y masaje'},
+  // ── PEDICURA ──
+  {id:'s5',emoji:'🦶',nombre:'Pedicura Clásica',cat:'Pedicura',precio:12,duracion:50,desc:'Limpieza, corte y limado de uñas de pies'},
+  {id:'s6',emoji:'🌸',nombre:'Pedicura con Esmaltado Tradicional',cat:'Pedicura',precio:15,duracion:60,desc:'Pedicura clásica + esmalte tradicional'},
+  {id:'s7',emoji:'🌺',nombre:'Pedicura con Semi Permanente',cat:'Pedicura',precio:18,duracion:65,desc:'Pedicura clásica + esmalte semipermanente con cura UV/LED'},
+  {id:'s8',emoji:'🛁',nombre:'Pedicura Spa Premium',cat:'Pedicura',precio:25,duracion:75,desc:'Pedicura completa con hidratación, exfoliación y masaje'},
+  // ── ESMALTADO Y SEMI PERMANENTE ──
+  {id:'s9',emoji:'💎',nombre:'Esmaltado Semi Permanente Manos',cat:'Esmaltado y Semi Permanente',precio:18,duracion:60,desc:'Esmalte semipermanente con cura UV/LED en manos'},
+  {id:'s10',emoji:'🌺',nombre:'Esmaltado Semi Permanente Pies',cat:'Esmaltado y Semi Permanente',precio:15,duracion:50,desc:'Esmalte semipermanente con cura UV/LED en pies'},
+  {id:'s11',emoji:'🔄',nombre:'Retoque Semi Permanente',cat:'Esmaltado y Semi Permanente',precio:10,duracion:40,desc:'Retoque de crecimiento con semipermanente'},
+  // ── ESMALTADO TRADICIONAL ──
+  {id:'s12',emoji:'🎨',nombre:'Esmaltado Tradicional Manos',cat:'Esmaltado Tradicional',precio:8,duracion:30,desc:'Esmalte tradicional al gusto en manos'},
+  {id:'s13',emoji:'🎨',nombre:'Esmaltado Tradicional Pies',cat:'Esmaltado Tradicional',precio:10,duracion:40,desc:'Esmalte tradicional al gusto en pies'},
+  {id:'s14',emoji:'✨',nombre:'Cambio de Esmalte',cat:'Esmaltado Tradicional',precio:5,duracion:20,desc:'Retiro y cambio de esmalte tradicional'},
+  // ── GEL ──
+  {id:'s15',emoji:'💎',nombre:'Uñas Gel Full Set',cat:'Gel',precio:25,duracion:90,desc:'Uñas de gel constructor con extensión completa'},
+  {id:'s16',emoji:'🔄',nombre:'Retoque Gel',cat:'Gel',precio:15,duracion:60,desc:'Relleno y mantenimiento de uñas de gel'},
+  {id:'s17',emoji:'✨',nombre:'Gel Overlay (cubierto)',cat:'Gel',precio:20,duracion:75,desc:'Cubierto de gel sobre uña natural para fortalecer'},
+  // ── SISTEMA DUAL ──
+  {id:'s18',emoji:'💫',nombre:'Sistema Dual Full Set',cat:'Sistema Dual',precio:28,duracion:100,desc:'Extensiones con sistema dual (acrílico + gel)'},
+  {id:'s19',emoji:'🔄',nombre:'Retoque Sistema Dual',cat:'Sistema Dual',precio:18,duracion:70,desc:'Relleno y mantenimiento de sistema dual'},
+  // ── UÑAS ACRÍLICAS ──
+  {id:'s20',emoji:'💅',nombre:'Uñas Acrílicas Full Set',cat:'Uñas Acrílicas',precio:25,duracion:90,desc:'Extensiones completas en polvo acrílico'},
+  {id:'s21',emoji:'🔄',nombre:'Retoque Acrílico',cat:'Uñas Acrílicas',precio:15,duracion:60,desc:'Relleno y mantenimiento acrílico'},
+  // ── ACRIGEL ──
+  {id:'s22',emoji:'✨',nombre:'Acrigel Full Set',cat:'Acrigel',precio:28,duracion:90,desc:'Extensiones con sistema acrigel'},
+  {id:'s23',emoji:'🔄',nombre:'Retoque Acrigel',cat:'Acrigel',precio:16,duracion:65,desc:'Relleno y mantenimiento acrigel'},
+  // ── POLYGEL ──
+  {id:'s24',emoji:'🌸',nombre:'Polygel Full Set',cat:'Polygel',precio:30,duracion:100,desc:'Extensiones con polygel'},
+  {id:'s25',emoji:'🔄',nombre:'Retoque Polygel',cat:'Polygel',precio:18,duracion:70,desc:'Relleno y mantenimiento de polygel'},
+  // ── NAIL ART ──
+  {id:'s26',emoji:'🎨',nombre:'Nail Art (diseño por uña)',cat:'Nail Art',precio:3,duracion:10,desc:'Diseño artístico individual por uña'},
+  {id:'s27',emoji:'🎨',nombre:'Nail Art Set Completo',cat:'Nail Art',precio:10,duracion:30,desc:'Diseños artísticos en set completo de uñas'},
+  {id:'s28',emoji:'💎',nombre:'Diseño con Accesorios',cat:'Nail Art',precio:12,duracion:35,desc:'Diseños con diamantes, charms o pedrería'},
+  // ── SPA UÑAS ──
+  {id:'s29',emoji:'🛁',nombre:'Spa de Manos',cat:'Spa Uñas',precio:12,duracion:45,desc:'Hidratación, exfoliación y masaje de manos'},
+  {id:'s30',emoji:'🛁',nombre:'Spa de Pies',cat:'Spa Uñas',precio:15,duracion:50,desc:'Hidratación, exfoliación y masaje de pies'},
+  // ── OTROS SERVICIOS ──
+  {id:'s31',emoji:'✂️',nombre:'Retiro de Acrílico/Gel',cat:'Retoque',precio:8,duracion:30,desc:'Retiro completo de uñas acrílicas o de gel'},
+  {id:'s32',emoji:'💅',nombre:'Encapsulado',cat:'Retoque',precio:15,duracion:50,desc:'Encapsulado de uñas con gel o acrigel'}
 ];
 
 function _loadDefaultData(){
+  // Siempre recargar servicios default si no hay servicios o si la versión cambió
+  var ver=DB.get('servicios_version');
+  if(!ver||ver<2){
+    DB.set('servicios',SERVICIOS_DEFAULT);
+    DB.set('servicios_version',2);
+  }else if(!DB.get('servicios')||DB.get('servicios').length===0){
+    DB.set('servicios',SERVICIOS_DEFAULT);
+    DB.set('servicios_version',2);
+  }
   if(!DB.get('productos_cargados')){
-    if(!DB.get('servicios')||DB.get('servicios').length===0)DB.set('servicios',SERVICIOS_DEFAULT);
     DB.set('productos_cargados',true);
   }
 }
