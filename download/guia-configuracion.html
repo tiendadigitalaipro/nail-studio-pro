@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SynthTrade Pro - Guia de Configuracion Completa</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page-bg: #0f0e0d;
+    --section-bg: #1a1918;
+    --card-bg: #222019;
+    --code-bg: #161514;
+    --accent: #8466df;
+    --accent-glow: rgba(132,102,223,0.3);
+    --accent2: #50c98c;
+    --text: #ebeae9;
+    --text-muted: #8a8880;
+    --border: #3a3630;
+    --success: #67b280;
+    --warning: #c3a66d;
+    --error: #bc756e;
+    --info: #83a1bf;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  @page {
+    size: 210mm 297mm;
+    margin: 0;
+  }
+
+  html, body {
+    font-family: 'Inter', sans-serif;
+    background: var(--page-bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 10.5pt;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm 22mm;
+    background: var(--page-bg);
+    position: relative;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* COVER */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 297mm;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(80,201,140,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover-badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    color: var(--accent);
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .cover h1 {
+    font-size: 38pt;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .cover h1 span { color: var(--accent); }
+  .cover-sub {
+    font-size: 14pt;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 50px;
+    position: relative;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    position: relative;
+  }
+  .cover-meta-item {
+    text-align: center;
+  }
+  .cover-meta-item .val {
+    font-size: 22pt;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+  .cover-meta-item .label {
+    font-size: 8pt;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .cover-line {
+    width: 80px;
+    height: 2px;
+    background: var(--accent);
+    margin: 40px auto;
+    position: relative;
+  }
+
+  /* SECTIONS */
+  .section-title {
+    font-size: 18pt;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    background: var(--accent);
+    color: white;
+    border-radius: 8px;
+    font-size: 13pt;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 10pt;
+    margin-bottom: 18px;
+    padding-left: 42px;
+  }
+
+  /* STEPS */
+  .step {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 26px; height: 26px;
+    background: var(--accent);
+    color: white;
+    border-radius: 6px;
+    font-size: 10pt;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .step-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .step p {
+    color: var(--text-muted);
+    font-size: 9.5pt;
+    line-height: 1.6;
+    padding-left: 36px;
+  }
+
+  /* CODE BLOCKS */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 10px 0 10px 36px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5pt;
+    line-height: 1.8;
+    color: #d4d4d4;
+    overflow-x: auto;
+    position: relative;
+  }
+  .code-block .prompt {
+    color: var(--accent2);
+    user-select: none;
+  }
+  .code-block .cmd { color: #e2e2e2; }
+  .code-block .comment { color: #6a6a6a; }
+  .code-block .flag { color: var(--accent); }
+  .code-block .string { color: #ce9178; }
+  .code-label {
+    position: absolute;
+    top: -8px; left: 12px;
+    background: var(--border);
+    color: var(--text-muted);
+    font-size: 7pt;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    padding: 1px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ALERT BOXES */
+  .alert {
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 10px 0 10px 36px;
+    font-size: 9pt;
+    line-height: 1.6;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .alert-success { background: rgba(103,178,128,0.1); border: 1px solid rgba(103,178,128,0.3); color: var(--success); }
+  .alert-warning { background: rgba(195,166,109,0.1); border: 1px solid rgba(195,166,109,0.3); color: var(--warning); }
+  .alert-error { background: rgba(188,117,110,0.1); border: 1px solid rgba(188,117,110,0.3); color: var(--error); }
+  .alert-info { background: rgba(131,161,191,0.1); border: 1px solid rgba(131,161,191,0.3); color: var(--info); }
+  .alert-icon { font-size: 14pt; flex-shrink: 0; }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    padding-left: 36px;
+    margin: 8px 0;
+  }
+  .checklist li {
+    padding: 4px 0;
+    font-size: 9.5pt;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .checklist li::before {
+    content: '';
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .checklist li.done::before {
+    content: '\2713';
+    color: var(--success);
+    background: rgba(103,178,128,0.15);
+    border-color: rgba(103,178,128,0.4);
+    font-size: 10pt;
+  }
+  .checklist li.done { color: var(--success); text-decoration: line-through; opacity: 0.7; }
+
+  /* TABLES */
+  .table-wrap {
+    margin: 12px 0 12px 36px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+  }
+  thead th {
+    background: var(--card-bg);
+    color: var(--accent);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  tbody td {
+    padding: 9px 14px;
+    border-bottom: 1px solid rgba(58,54,48,0.5);
+    color: var(--text-muted);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: rgba(22,21,20,0.5); }
+  td code {
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    color: var(--accent);
+  }
+
+  /* DIAGRAMS */
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 16px 0;
+    flex-wrap: wrap;
+    padding: 0 10px;
+  }
+  .flow-step {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-align: center;
+    min-width: 100px;
+  }
+  .flow-step .f-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .flow-step .f-desc {
+    font-size: 7.5pt;
+    color: var(--text-muted);
+  }
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 16pt;
+    margin: 0 4px;
+    flex-shrink: 0;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  /* FOOTER */
+  .page-footer {
+    position: absolute;
+    bottom: 12mm;
+    left: 22mm;
+    right: 22mm;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7.5pt;
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+
+  .highlight { color: var(--accent); font-weight: 600; }
+  .highlight-green { color: var(--accent2); font-weight: 600; }
+
+  /* Sub-step */
+  .substep {
+    padding-left: 36px;
+    margin: 6px 0;
+  }
+  .substep p {
+    padding-left: 0;
+  }
+  .substep .code-block {
+    margin-left: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ PORTADA ============ -->
+<div class="page cover">
+  <div class="cover-badge">GUIA DE CONFIGURACION</div>
+  <h1>SynthTrade <span>Pro</span></h1>
+  <p class="cover-sub">Bot de Trading Automatizado para Indices Sinteticos de Deriv</p>
+  <div class="cover-line"></div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="val">5</div>
+      <div class="label">Estrategias</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="val">12</div>
+      <div class="label">Mercados</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="val">24/7</div>
+      <div class="label">Operativo</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PAGINA 2: RESUMEN ============ -->
+<div class="page">
+  <div class="section-title"><span class="section-num">1</span> Tu Progreso Actual</div>
+  <p class="section-desc">Revision de lo que ya instalaste correctamente en tu laptop ASUS con Windows.</p>
+
+  <div class="alert alert-success">
+    <span class="alert-icon">&#10003;</span>
+    <div><strong>Bun v1.3.11 instalado correctamente.</strong> Bun es un runtime de JavaScript ultrarapido que reemplaza a Node.js. Funciona perfecto para este proyecto.</div>
+  </div>
+
+  <div class="alert alert-success">
+    <span class="alert-icon">&#10003;</span>
+    <div><strong>25 paquetes instalados.</strong> Todas las dependencias del proyecto se descargaron correctamente con <code>bun install</code>.</div>
+  </div>
+
+  <div class="alert alert-error">
+    <span class="alert-icon">&#10007;</span>
+    <div><strong>Error en db:push.</strong> El script falla porque falta configurar el archivo <code>.env</code> que indica a la base de datos donde almacenarse. A continuacion te explico como resolverlo.</div>
+  </div>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">&#9432;</span>
+    <div><strong>bun run dev.</strong> Este comando inicio el servidor de desarrollo. Si todo esta configurado, podras ver el bot en tu navegador abriendo <code>http://localhost:3000</code>.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span class="section-num">2</span> Que Te Falta Por Hacer</div>
+  <p class="section-desc">Solo necesitas completar estos 4 pasos para tener el bot 100% operativo.</p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="f-title">Paso 1</div>
+      <div class="f-desc">Crear .env</div>
+    </div>
+    <div class="flow-arrow">&#8594;</div>
+    <div class="flow-step">
+      <div class="f-title">Paso 2</div>
+      <div class="f-desc">Base de Datos</div>
+    </div>
+    <div class="flow-arrow">&#8594;</div>
+    <div class="flow-step">
+      <div class="f-title">Paso 3</div>
+      <div class="f-desc">Iniciar Bot</div>
+    </div>
+    <div class="flow-arrow">&#8594;</div>
+    <div class="flow-step">
+      <div class="f-title">Paso 4</div>
+      <div class="f-desc">Conectar Deriv</div>
+    </div>
+  </div>
+
+  <ul class="checklist">
+    <li class="done">Instalar Bun runtime</li>
+    <li class="done">Clonar/descargar el proyecto</li>
+    <li class="done">Ejecutar bun install (dependencias)</li>
+    <li>Crear archivo .env con DATABASE_URL</li>
+    <li>Ejecutar bun run db:generate y bun run db:push</li>
+    <li>Ejecutar bun run dev y abrir en navegador</li>
+    <li>Obtener token API de Deriv</li>
+    <li>Conectar el bot a Deriv y empezar a operar</li>
+  </ul>
+
+  <div class="page-footer">SynthTrade Pro &mdash; Guia de Configuracion &mdash; Pagina 2</div>
+</div>
+
+<!-- ============ PAGINA 3: PASO 1 ============ -->
+<div class="page">
+  <div class="section-title"><span class="section-num">3</span> Paso 1: Crear el Archivo .env</div>
+  <p class="section-desc">El archivo .env le dice al proyecto donde guardar la base de datos SQLite de trading.</p>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">1</span>
+      <span class="step-title">Abrir PowerShell en la carpeta del proyecto</span>
+    </div>
+    <p>En PowerShell, navega a la carpeta donde descargaste el proyecto SynthTrade Pro. Usa el comando <code>cd</code> para entrar a la carpeta. Asegurate de estar dentro de la carpeta que contiene el archivo <code>package.json</code>.</p>
+    <div class="code-block">
+      <span class="code-label">PowerShell</span>
+      <span class="prompt">PS C:\Users\ASUS&gt; </span><span class="cmd">cd Descargas\synthtrade-pro</span><br>
+      <span class="prompt">PS C:\Users\ASUS\synthtrade-pro&gt; </span><span class="cmd">dir</span><br>
+      <span class="comment"># Debes ver: package.json, src/, prisma/, public/, etc.</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">2</span>
+      <span class="step-title">Crear el archivo .env</span>
+    </div>
+    <p>Ejecuta el siguiente comando para crear el archivo de configuracion. Este archivo contiene la ruta donde se almacenara la base de datos local SQLite que registra todas tus operaciones de trading.</p>
+    <div class="code-block">
+      <span class="code-label">PowerShell</span>
+      <span class="prompt">PS C:\Users\ASUS\synthtrade-pro&gt; </span><span class="cmd">echo <span class="string">"DATABASE_URL=file:./db/custom.db"</span> &gt; .env</span><br>
+      <span class="comment"># Verifica que se creo correctamente:</span><br>
+      <span class="prompt">PS C:\Users\ASUS\synthtrade-pro&gt; </span><span class="cmd">cat .env</span><br>
+      <span class="comment">DATABASE_URL=file:./db/custom.db</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">3</span>
+      <span class="step-title">Crear la carpeta db</span>
+    </div>
+    <p>La base de datos se guardara dentro de la carpeta <code>db</code>. Asegurate de crearla si no existe.</p>
+    <div class="code-block">
+      <span class="code-label">PowerShell</span>
+      <span class="prompt">PS C:\Users\ASUS\synthtrade-pro&gt; </span><span class="cmd">mkdir db -Force</span><br>
+      <span class="comment"># El parametro -Force evita error si la carpeta ya existe</span>
+    </div>
+  </div>
+
+  <div class="alert alert-warning">
+    <span class="alert-icon">&#9888;</span>
+    <div><strong>Importante:</strong> El archivo <code>.env</code> es invisible en el explorador de Windows por defecto. Eso es normal. Si necesitas editarlo, abrelo con Notepad ejecutando <code>notepad .env</code> en PowerShell.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span class="section-num">4</span> Paso 2: Configurar la Base de Datos</div>
+  <p class="section-desc">Inicializa Prisma ORM para que la base de datos funcione correctamente.</p>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">1</span>
+      <span class="step-title">Generar el cliente Prisma</span>
+    </div>
+    <p>Este comando genera las clases de TypeScript que el bot usa para comunicarse con la base de datos. Es un paso obligatorio que crea la conexion entre tu codigo y SQLite.</p>
+    <div class="code-block">
+      <span class="code-label">PowerShell</span>
+      <span class="prompt">PS C:\Users\ASUS\synthtrade-pro&gt; </span><span class="cmd">bun run db:generate</span><br>
+      <span class="comment"># Salida esperada:</span><br>
+      <span class="comment"># ✔ Generated Prisma Client to ./node_modules/@prisma/client</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">2</span>
+      <span class="step-title">Crear las tablas en la base de datos</span>
+    </div>
+    <p>Este comando lee el archivo <code>prisma/schema.prisma</code> y crea las tablas <code>TradeRecord</code> y <code>BotSetting</code> en tu base de datos SQLite. Ahora si deberia funcionar sin error.</p>
+    <div class="code-block">
+      <span class="code-label">PowerShell</span>
+      <span class="prompt">PS C:\Users\ASUS\synthtrade-pro&gt; </span><span class="cmd">bun run db:push</span><br>
+      <span class="comment"># Salida esperada:</span><br>
+      <span class="comment"># ✔ The database is already in sync with the Prisma schema.</span><br>
+      <span class="comment"># ✔ Generated Prisma Client</span>
+    </div>
+    <div class="alert alert-success">
+      <span class="alert-icon">&#10003;</span>
+      <div>Si ves el mensaje verde "The database is already in sync", la base de datos esta lista. Este paso anteriormente daba error porque no existia el archivo <code>.env</code>.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">SynthTrade Pro &mdash; Guia de Configuracion &mdash; Pagina 3</div>
+</div>
+
+<!-- ============ PAGINA 4: PASO 3 ============ -->
+<div class="page">
+  <div class="section-title"><span class="section-num">5</span> Paso 3: Iniciar el Bot</div>
+  <p class="section-desc">Levanta el servidor de desarrollo y abre el bot en tu navegador web.</p>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">1</span>
+      <span class="step-title">Iniciar el servidor de desarrollo</span>
+    </div>
+    <p>Ejecuta el comando de desarrollo. Esto compila la aplicacion Next.js y la pone disponible en tu red local. El proceso puede tardar entre 15 y 60 segundos la primera vez.</p>
+    <div class="code-block">
+      <span class="code-label">PowerShell</span>
+      <span class="prompt">PS C:\Users\ASUS\synthtrade-pro&gt; </span><span class="cmd">bun run dev</span><br>
+      <span class="comment"># Espera a ver este mensaje:</span><br>
+      <span class="comment"># ▲ Next.js 16.x.x</span><br>
+      <span class="comment"># - Local: http://localhost:3000</span><br>
+      <span class="comment"># ✓ Ready in 3.2s</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">2</span>
+      <span class="step-title">Abrir en el navegador</span>
+    </div>
+    <p>Una vez que el servidor este listo, abre tu navegador web (Chrome, Edge, Firefox) y navega a la direccion que muestra la consola. Veras la interfaz del bot SynthTrade Pro con el tema oscuro.</p>
+    <div class="code-block">
+      <span class="code-label">Navegador</span>
+      <span class="comment">Abre en tu navegador:</span><br>
+      <span class="cmd">http://localhost:3000</span>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">&#9432;</span>
+    <div><strong>El servidor debe quedar ejecutandose.</strong> No cierres la ventana de PowerShell mientras uses el bot. Si la cierras, el servidor se detiene y no podras acceder al bot en el navegador. Para detenerlo, presiona <code>Ctrl + C</code> en la ventana de PowerShell.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span class="section-num">6</span> Paso 4: Obtener Token de Deriv</div>
+  <p class="section-desc">Necesitas un token de API de Deriv para que el bot pueda operar en tu cuenta.</p>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">1</span>
+      <span class="step-title">Crear o acceder a tu cuenta de Deriv</span>
+    </div>
+    <p>Ve a la pagina oficial de Deriv y crea una cuenta si no tienes una. Recomiendo usar una cuenta de DEMO primero para probar el bot sin arriesgar dinero real. Puedes cambiar a cuenta real cuando estes seguro del funcionamiento.</p>
+    <div class="code-block">
+      <span class="code-label">Navegador</span>
+      <span class="comment">Pagina oficial de Deriv:</span><br>
+      <span class="cmd">https://app.deriv.com</span><br><br>
+      <span class="comment">Registrate con tu email y verifica tu cuenta.</span><br>
+      <span class="comment">Selecciona "Cuenta Demo" para pruebas sin riesgo.</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">2</span>
+      <span class="step-title">Generar el Token de API</span>
+    </div>
+    <p>El token de API es como una contrasena que le permite al bot ejecutar operaciones en tu nombre. Sigue estos pasos para generarlo desde la plataforma de Deriv.</p>
+  </div>
+
+  <div class="substep">
+    <p><strong>a)</strong> Entra a <code>https://app.deriv.com/account/api-token</code></p>
+    <p><strong>b)</strong> Inicia sesion con tu cuenta de Deriv</p>
+    <p><strong>c)</strong> En el campo "Token name" escribe: <span class="highlight">SynthTradePro</span></p>
+    <p><strong>d)</strong> Selecciona los siguientes <strong>scopes</strong> (permisos):</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Scope</th>
+          <th>Para que sirve</th>
+          <th>Necesario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>Read</code></td>
+          <td>Leer saldo, estado de cuenta y datos personales</td>
+          <td style="color:var(--success); font-weight:600;">SI</td>
+        </tr>
+        <tr>
+          <td><code>Trade</code></td>
+          <td>Ejecutar operaciones de compra/venta en tu cuenta</td>
+          <td style="color:var(--success); font-weight:600;">SI</td>
+        </tr>
+        <tr>
+          <td><code>Payments</code></td>
+          <td>Gestionar depositos y retiros</td>
+          <td style="color:var(--error); font-weight:600;">NO</td>
+        </tr>
+        <tr>
+          <td><code>Admin</code></td>
+          <td>Acceso administrativo completo</td>
+          <td style="color:var(--error); font-weight:600;">NO</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert alert-warning">
+    <span class="alert-icon">&#9888;</span>
+    <div><strong>Solo activa Read y Trade.</strong> No actives Payments ni Admin. El bot solo necesita leer datos y ejecutar operaciones. Menos permisos = mas seguridad para tu cuenta.</div>
+  </div>
+
+  <div class="page-footer">SynthTrade Pro &mdash; Guia de Configuracion &mdash; Pagina 4</div>
+</div>
+
+<!-- ============ PAGINA 5: CONECTAR ============ -->
+<div class="page">
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">3</span>
+      <span class="step-title">Copiar el Token generado</span>
+    </div>
+    <p>Despues de crear el token, Deriv te mostrara una cadena de texto larga (aproximadamente 30 caracteres). Copia esta cadena completa. Solo se mostrara una vez por seguridad, si la pierdes tendras que generar un nuevo token.</p>
+    <div class="code-block">
+      <span class="code-label">Ejemplo de Token</span>
+      <span class="comment"># El token se vera algo asi (NO uses este, es de ejemplo):</span><br>
+      <span class="string">abc123def456ghi789jkl012mno345pqr</span>
+    </div>
+    <div class="alert alert-error">
+      <span class="alert-icon">&#9888;</span>
+      <div><strong>Nunca compartas tu token.</strong> Es equivalente a la contrasena de tu cuenta de trading. Cualquier persona con acceso a tu token puede operar con tu saldo.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span class="section-num">7</span> Paso 5: Conectar el Bot a Deriv</div>
+  <p class="section-desc">Ingresa tu token en la interfaz del bot y conecta con Deriv.</p>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">1</span>
+      <span class="step-title">Pegar el token en el panel de conexion</span>
+    </div>
+    <p>En la interfaz del bot (en tu navegador), busca el panel de conexion que aparece en la parte superior izquierda. Veras un campo de texto donde debes pegar tu token de API. Pega el token que copiaste de Deriv y haz clic en el boton "Conectar" o "Connect".</p>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">2</span>
+      <span class="step-title">Seleccionar un mercado</span>
+    </div>
+    <p>Despues de conectar, el panel mostrara los mercados disponibles. Selecciona uno de los 12 indices sinteticos disponibles como Boom 1000, Crash 1000, Volatility 75 o Jump 10. El grafico de precios en tiempo real comenzara a actualizarse automaticamente.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Mercado</th>
+          <th>Simbolo</th>
+          <th>Descripcion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Boom 1000</td>
+          <td><code>BOOM1000</code></td>
+          <td>Spikes alcistas aleatorios</td>
+        </tr>
+        <tr>
+          <td>Crash 1000</td>
+          <td><code>CRASH1000</code></td>
+          <td>Spikes bajistas aleatorios</td>
+        </tr>
+        <tr>
+          <td>Volatility 10</td>
+          <td><code>R_10</code></td>
+          <td>Volatilidad baja, movimientos suaves</td>
+        </tr>
+        <tr>
+          <td>Volatility 25</td>
+          <td><code>R_25</code></td>
+          <td>Volatilidad media</td>
+        </tr>
+        <tr>
+          <td>Volatility 75</td>
+          <td><code>R_75</code></td>
+          <td>Volatilidad alta, movimientos rapidos</td>
+        </tr>
+        <tr>
+          <td>Volatility 100</td>
+          <td><code>R_100</code></td>
+          <td>Maxima volatilidad del mercado</td>
+        </tr>
+        <tr>
+          <td>Jump 10</td>
+          <td><code>1HZ10V</code></td>
+          <td>Saltos cada 10 ticks</td>
+        </tr>
+        <tr>
+          <td>Jump 25</td>
+          <td><code>1HZ25V</code></td>
+          <td>Saltos cada 25 ticks</td>
+        </tr>
+        <tr>
+          <td>Jump 50</td>
+          <td><code>1HZ50V</code></td>
+          <td>Saltos cada 50 ticks</td>
+        </tr>
+        <tr>
+          <td>Jump 75</td>
+          <td><code>1HZ75V</code></td>
+          <td>Saltos cada 75 ticks</td>
+        </tr>
+        <tr>
+          <td>Jump 100</td>
+          <td><code>1HZ100V</code></td>
+          <td>Saltos cada 100 ticks</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-footer">SynthTrade Pro &mdash; Guia de Configuracion &mdash; Pagina 5</div>
+</div>
+
+<!-- ============ PAGINA 6: ESTRATEGIAS Y CONSEJOS ============ -->
+<div class="page">
+  <div class="section-title"><span class="section-num">8</span> Estrategias de Trading Disponibles</div>
+  <p class="section-desc">El bot incluye 5 estrategias que puedes combinar. Puedes activar varias al mismo tiempo y el bot usara un sistema de consenso para decidir cuando operar.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Estrategia</th>
+          <th>Como Funciona</th>
+          <th>Ideal Para</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--accent); font-weight:600;">RSI</td>
+          <td>Detecta condiciones de sobrecompra (RSI &gt; 70) y sobreventa (RSI &lt; 30) para anticipar reversiones del precio</td>
+          <td>Volatility, Crash</td>
+        </tr>
+        <tr>
+          <td style="color:var(--accent); font-weight:600;">MA Crossover</td>
+          <td>Cruce de medias moviles (5 y 20 periodos). Compra cuando MA rapida cruza por encima, vende cuando cruza por debajo</td>
+          <td>Todos los mercados</td>
+        </tr>
+        <tr>
+          <td style="color:var(--accent); font-weight:600;">Bollinger Bands</td>
+          <td>Canal de volatilidad. Opera cuando el precio toca las bandas superior o inferior, esperando un rebote</td>
+          <td>Volatility, Jump</td>
+        </tr>
+        <tr>
+          <td style="color:var(--accent); font-weight:600;">Spike Detection</td>
+          <td>Detecta movimientos bruscos del precio (spikes) que superan un umbral definido. Estrategia agresiva</td>
+          <td>Boom, Crash</td>
+        </tr>
+        <tr>
+          <td style="color:var(--accent); font-weight:600;">Composite</td>
+          <td>Combina las 4 estrategias anteriores. Solo opera cuando 60% o mas de las estrategias estan de acuerdo</td>
+          <td>Conservadores</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span class="section-num">9</span> Consejos de Seguridad y Riesgo</div>
+  <p class="section-desc">Reglas fundamentales para operar de forma segura con el bot.</p>
+
+  <div class="alert alert-warning">
+    <span class="alert-icon">&#9888;</span>
+    <div><strong>Empieza con cuenta DEMO.</strong> Nunca uses dinero real hasta que hayas probado el bot durante al menos 1-2 semanas y entiendas como se comporta cada estrategia en diferentes condiciones de mercado.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">1</span>
+      <span class="step-title">Configura limites de riesgo en el panel de Risk Management</span>
+    </div>
+    <p>El bot tiene un panel de gestion de riesgo donde puedes definir limites automaticos. Configura un limite de perdida diaria (ejemplo: $10), un objetivo de ganancia (ejemplo: $20) y un numero maximo de perdidas consecutivas antes de detener el auto-trading. Estos parametros protegen tu capital de perdidas excesivas.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">2</span>
+      <span class="step-title">Usa monto inicial pequeno</span>
+    </div>
+    <p>Configura el monto por operacion en un valor bajo como $0.35 o $1.00. Es preferible hacer muchas operaciones pequenas que pocas operaciones grandes. El sistema Martingale (que duplica la apuesta tras una perdida) puede aumentar rapidamente el riesgo si no se configura con limites estrictos.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <span class="step-num">3</span>
+      <span class="step-title">Monitorea el bot regularmente</span>
+    </div>
+    <p>Aunque el bot opera automaticamente, es recomendable revisarlo periodicamente. Revisa el panel de metricas de rendimiento, el historial de operaciones y asegurate de que las estrategias se estan comportando como esperas. Los mercados cambian y una estrategia que funciona hoy puede no funcionar manana.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span class="section-num">10</span> Resumen de Comandos</div>
+  <p class="section-desc">Todos los comandos que necesitas ejecutar en PowerShell, en orden.</p>
+
+  <div class="code-block">
+    <span class="code-label">Comandos Completos</span>
+    <span class="comment"># 1. Navegar al proyecto</span><br>
+    <span class="cmd">cd Descargas\synthtrade-pro</span><br><br>
+    <span class="comment"># 2. Crear archivo .env</span><br>
+    <span class="cmd">echo "DATABASE_URL=file:./db/custom.db" &gt; .env</span><br><br>
+    <span class="comment"># 3. Crear carpeta db</span><br>
+    <span class="cmd">mkdir db -Force</span><br><br>
+    <span class="comment"># 4. Generar Prisma</span><br>
+    <span class="cmd">bun run db:generate</span><br><br>
+    <span class="comment"># 5. Crear tablas</span><br>
+    <span class="cmd">bun run db:push</span><br><br>
+    <span class="comment"># 6. Iniciar el bot</span><br>
+    <span class="cmd">bun run dev</span><br><br>
+    <span class="comment"># 7. Abrir en navegador: http://localhost:3000</span>
+  </div>
+
+  <div class="page-footer">SynthTrade Pro &mdash; Guia de Configuracion &mdash; Pagina 6</div>
+</div>
+
+</body>
+</html>
