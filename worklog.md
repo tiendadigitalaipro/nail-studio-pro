@@ -78,3 +78,28 @@ Stage Summary:
 - Keyboard shortcuts for faster manual trading
 - Professional logo generated and set as favicon
 - Application is complete and production-ready
+---
+Task ID: 1
+Agent: Main Agent
+Task: Apply 4 emergency fixes + symbol corrections to SynthTrade Pro
+
+Work Log:
+- Read all current source files (deriv-api.ts, store.ts, strategies.ts, trading-controls.tsx, market-selector.tsx, connection-panel.tsx)
+- FIX 1: Changed WebSocket URL from `ws.binaryws.com` to `ws.derivws.com` in deriv-api.ts
+- FIX 2: Changed `active_symbols: 'brief'` to `active_symbols: 'full'` in deriv-api.ts
+- FIX 3: Authorize is already sent first (confirmed in store.ts connect flow)
+- FIX 4: Added `if(!tick.quote || !isFinite(tick.quote)) return;` null guard in tick handler
+- FIX 5: Gold/Metals minDurationMinutes changed from 3 to 60 (1 hour)
+- FIX 6: Replaced wrong symbols: BOOM300→1HB300V, BOOM500→1HB500V, CRASH300→1HC300V, CRASH500→1HC500V
+- FIX 7: Added continuous symbols: 1HB300V, 1HB500V, 1HB1000V, 1HC300V, 1HC500V, 1HC1000V
+- FIX 8: Boom/Crash → DIGITMATCH/DIGITDIFF (digit only, no CALL/PUT)
+- FIX 9: `getDerivContractType` now returns full object {contractType, barrier, duration, durationUnit}
+- FIX 10: store.ts placeTrade updated to use new getDerivContractType signature
+- FIX 11: Added "Horas" option to duration selector in TradingControls
+- FIX 12: Fixed TypeScript errors (null token, account_list, playSound interface)
+- ZIP packaged: /home/z/my-project/download/SynthTradePro-FINAL-FIX.zip (97K)
+
+Stage Summary:
+- All 4 mandatory fixes applied + additional symbol/duration/contract type corrections
+- TypeScript compiles clean, ESLint passes
+- ZIP ready for user download
