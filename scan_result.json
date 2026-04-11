@@ -1,0 +1,28 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "The text shows an **error**. The exact text is:  \n`Error: Not in a Firebase app directory (could not locate firebase.json)`",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1775936349,
+  "id": "2026041203390727de917dd4e84cca",
+  "model": "glm-4.6v",
+  "object": "chat.completion",
+  "request_id": "2026041203390727de917dd4e84cca",
+  "usage": {
+    "completion_tokens": 31,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens": 695,
+    "prompt_tokens_details": {
+      "cached_tokens": 4
+    },
+    "total_tokens": 726
+  }
+}
