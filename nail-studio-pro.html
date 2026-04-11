@@ -3156,7 +3156,7 @@ function getDeviceId(){
 }
 
 // Hash del device para embeber en la licencia PRO
-function _devHash(deviceId){return _hash(deviceId+_SIGN_SALT).slice(0,6);}
+function _devHash(deviceId){return _hash((deviceId||'').trim().toUpperCase()+_SIGN_SALT).slice(0,6);}
 
 // Generar PRO vinculada a un Device ID específico
 function _generarFirmadaPRO(deviceId){
@@ -3188,7 +3188,7 @@ function _verificarFirmada(code){
       return{valid:false,msg:'❌ Código PRO inválido o corrupto.'};
     var myDH=_devHash(getDeviceId());
     if(embDevHash!==myDH)
-      return{valid:false,msg:'🚫 Esta licencia ya está en uso en otro terminal. Contacta al administrador para obtener una licencia para este dispositivo.'};
+      return{valid:true,tipo:'PRO',deviceChanged:true,embDevHash:embDevHash,msg:'⚠️ Licencia de otro dispositivo — se activará con reactivación pendiente.'};
     return{valid:true,tipo:'PRO'};
   }
   // DEMO: NS-DEMO-RAND6-CHECK4
@@ -3283,9 +3283,14 @@ function registrarCuenta(){
     // Activar licencia
     if(r.tipo==='DEMO'){_activarComoDemo(lic);}
     else {
-      var licObj={code:lic.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master};
+      var licObj={code:lic.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master,reactivacion:!!r.deviceChanged};
       DB.set('licencia_activa',licObj);
       _desbloquearApp(licObj);
+      if(r.deviceChanged){
+        setTimeout(function(){
+          alert('⚠️ REACTIVACIÓN PENDIENTE\n\nTu licencia PRO fue activada pero fue generada para otro dispositivo.\n\nComparte este Device ID con el administrador:\n'+getDeviceId()+'\n\nPara completar la reactivación correctamente.');
+        },1500);
+      }
     }
   } else {
     if(msg){msg.style.color='var(--text3)';msg.textContent='Ingresa un código de licencia o usa la prueba gratuita.';}
@@ -3352,8 +3357,11 @@ function reactivarLicenciaLogin(){
   if(!r.valid){if(msg){msg.style.color='var(--danger)';msg.innerHTML=r.msg;}return;}
   if(r.tipo==='DEMO'){_activarComoDemo(lic);}
   else{
-    var licObj={code:lic.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master};
+    var licObj={code:lic.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master,reactivacion:!!r.deviceChanged};
     DB.set('licencia_activa',licObj);_desbloquearApp(licObj);
+    if(r.deviceChanged){
+      if(msg){msg.style.color='var(--warn)';msg.innerHTML='✅ Licencia activada (reactivación pendiente). Device ID: '+getDeviceId();}
+    }
   }
 }
 
@@ -3366,8 +3374,11 @@ function activarLicencia(){
   if(!r.valid){if(msg)msg.innerHTML='<span style="color:var(--danger)">'+r.msg+'</span>';return;}
   if(r.tipo==='DEMO'){_activarComoDemo(code);return;}
   // PRO
-  var lic={code:code.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master};
+  var lic={code:code.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master,reactivacion:!!r.deviceChanged};
   DB.set('licencia_activa',lic);
+  if(r.deviceChanged){
+    if(msg){msg.style.color='var(--warn)';msg.innerHTML='✅ Licencia activada (reactivación pendiente).<br>Device ID: <b>'+getDeviceId()+'</b><br>Comparte este ID con el administrador.';}
+  }
   // Marcar como usada en el registro local
   var gen=DB.get('licencias_generadas')||[];
   var idx=gen.findIndex(function(x){return x.code===lic.code;});
