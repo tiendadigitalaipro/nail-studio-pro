@@ -1371,6 +1371,74 @@
   .emoji-opt.selected{background:rgba(214,51,132,0.25)!important;border-color:var(--fuchsia)!important;transform:scale(1.1)}
   #qr-video{width:100%;border-radius:12px;max-height:280px;object-fit:cover}
   @media(max-width:768px){.pos-layout{grid-template-columns:1fr;height:auto}}
+
+  /* ═══ PRESUPUESTO ═══ */
+  .ppto-grid{display:grid;grid-template-columns:1fr 380px;gap:20px;min-height:calc(100vh - 140px)}
+  .ppto-form-panel{display:flex;flex-direction:column;gap:16px;overflow-y:auto;padding-bottom:20px}
+  .ppto-result-panel{position:sticky;top:80px;display:flex;flex-direction:column;gap:12px}
+  .ppto-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;position:relative;overflow:hidden}
+  .ppto-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--rose),transparent);opacity:.4}
+  .ppto-section-title{font-family:var(--display);font-size:15px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .ppto-chips{display:flex;flex-wrap:wrap;gap:7px}
+  .ppto-chip{padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:rgba(255,255,255,0.03);color:var(--text2);font-size:12px;font-weight:500;cursor:pointer;transition:all .18s;user-select:none}
+  .ppto-chip:hover{border-color:var(--rose);color:var(--text)}
+  .ppto-chip.active{background:linear-gradient(135deg,rgba(214,51,132,0.2),rgba(201,149,106,0.12));border-color:var(--fuchsia);color:var(--text);box-shadow:0 0 12px rgba(214,51,132,0.2)}
+  .ppto-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px}
+  .ppto-card{padding:14px 10px;border-radius:12px;border:2px solid var(--border);background:rgba(255,255,255,0.03);cursor:pointer;text-align:center;transition:all .2s;user-select:none}
+  .ppto-card:hover{border-color:var(--rose);transform:translateY(-2px)}
+  .ppto-card.active{border-color:var(--fuchsia);background:rgba(214,51,132,0.12);box-shadow:0 0 16px rgba(214,51,132,0.2)}
+  .ppto-card-icon{font-size:26px;margin-bottom:6px;display:block}
+  .ppto-card-label{font-size:12px;font-weight:600;color:var(--text)}
+  .ppto-card-sub{font-size:10px;color:var(--text3);margin-top:2px}
+  .ppto-mat-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid var(--border);margin-bottom:6px}
+  .ppto-mat-name{flex:1;font-size:12px;font-weight:500;color:var(--text2)}
+  .ppto-mat-qty{width:50px;text-align:center}
+  .ppto-mat-cost{font-family:var(--mono);font-size:12px;color:var(--gold);min-width:55px;text-align:right}
+  .ppto-total-card{background:linear-gradient(135deg,rgba(214,51,132,0.12),rgba(201,149,106,0.08));border:1px solid rgba(214,51,132,0.3);border-radius:16px;padding:22px;position:relative;overflow:hidden}
+  .ppto-total-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--fuchsia),var(--lila))}
+  .ppto-total-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+  .ppto-total-value{font-family:var(--mono);font-size:14px;color:var(--text2);margin:2px 0}
+  .ppto-grand-total{font-family:var(--mono);font-size:36px;font-weight:700;color:var(--gold);text-align:center;margin:12px 0 4px}
+  .ppto-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .ppto-ref-preview{width:100%;max-height:180px;object-fit:cover;border-radius:10px;border:1px solid var(--border);margin-top:8px;display:none}
+  .ppto-ref-preview.show{display:block}
+  @media(max-width:900px){.ppto-grid{grid-template-columns:1fr;height:auto}.ppto-result-panel{position:static}}
+  @media(max-width:768px){.ppto-cards{grid-template-columns:repeat(2,1fr)}}
+
+  /* ═══ MIS COSTOS ═══ */
+  .mc-tarifa-card{background:linear-gradient(135deg,rgba(201,149,106,0.1),rgba(179,136,255,0.08));border:1px solid rgba(201,149,106,0.25);border-radius:16px;padding:22px;text-align:center;position:relative;overflow:hidden}
+  .mc-tarifa-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--fuchsia))}
+  .mc-tarifa-value{font-family:var(--mono);font-size:42px;font-weight:700;color:var(--gold);margin:8px 0}
+  .mc-tarifa-calc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-top:14px}
+  .mc-tarifa-calc-result{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--fuchsia);text-align:center;margin-top:12px;padding:12px;background:rgba(214,51,132,0.08);border-radius:10px;border:1px solid rgba(214,51,132,0.2)}
+  .mc-cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+  .mc-cat-tab{padding:6px 14px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:12px;font-weight:500;cursor:pointer;transition:all .18s}
+  .mc-cat-tab:hover{border-color:var(--rose)}
+  .mc-cat-tab.active{background:linear-gradient(135deg,var(--fuchsia),var(--lila));color:#fff;border-color:transparent}
+  .mc-mat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+  .mc-mat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s}
+  .mc-mat-card:hover{border-color:rgba(201,149,106,0.35);box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+  .mc-mat-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+  .mc-mat-cat{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+  .mc-mat-details{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text2);margin-bottom:4px}
+  .mc-mat-costo{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--gold)}
+  .mc-mat-stock{font-size:11px;color:var(--text3);margin-top:4px;display:flex;align-items:center;gap:4px}
+  .mc-mat-stock .stock-bar{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.08);overflow:hidden}
+  .mc-mat-stock .stock-fill{height:100%;border-radius:2px;transition:width .3s}
+  .mc-mat-actions{display:flex;gap:6px;margin-top:8px}
+  @media(max-width:768px){.mc-mat-grid{grid-template-columns:1fr}}
+
+  /* ═══ CLIENT PROFILE ENHANCED ═══ */
+  .cli-pref-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .cli-pref-tag{padding:5px 12px;border-radius:99px;border:1px solid var(--border);background:rgba(255,255,255,0.03);color:var(--text3);font-size:11px;cursor:pointer;transition:all .18s;user-select:none}
+  .cli-pref-tag.active{background:rgba(201,149,106,0.15);border-color:var(--rose);color:var(--text)}
+  .cli-hist-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);padding:8px 0}
+  .cli-hist-toggle .arrow{transition:transform .2s}
+  .cli-hist-toggle.open .arrow{transform:rotate(90deg)}
+  .cli-ultimo-serv{background:rgba(76,175,135,0.08);border:1px solid rgba(76,175,135,0.2);border-radius:10px;padding:12px;margin-bottom:14px}
+  .cli-ref-imgs{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .cli-ref-thumb{width:60px;height:60px;border-radius:8px;object-fit:cover;border:1px solid var(--border);cursor:pointer;transition:transform .15s}
+  .cli-ref-thumb:hover{transform:scale(1.1)}
   </style>
 </head>
 <body>
@@ -1537,6 +1605,15 @@
       <div class="nav-item" onclick="showPage('reportes',this)">
         <span class="nav-icon">📊</span>
         <span class="nav-label">Reportes</span>
+      </div>
+
+      <div class="nav-item" onclick="showPage('presupuesto',this)">
+        <span class="nav-icon">🧮</span>
+        <span class="nav-label">Presupuesto</span>
+      </div>
+      <div class="nav-item" onclick="showPage('miscostos',this)">
+        <span class="nav-icon">⏱️</span>
+        <span class="nav-label">Mis Costos</span>
       </div>
 
       <div class="nav-section-label">Sistema</div>
@@ -2223,6 +2300,245 @@
 
       </div><!-- /page-config -->
 
+      <!-- ===== PRESUPUESTO ===== -->
+      <div class="page" id="page-presupuesto">
+        <div class="section-header">
+          <div>
+            <div class="section-title">🧮 Presupuesto</div>
+            <div class="section-subtitle">Crea cotizaciones profesionales para tus clientas</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-ghost btn-sm" onclick="pptoNuevaCitaDesdePpto()">📅 Crear cita desde presupuesto</button>
+            <button class="btn btn-ghost btn-sm" onclick="pptoVerHistorial()">📋 Historial de presupuestos</button>
+          </div>
+        </div>
+        <div class="ppto-grid">
+          <!-- LEFT: Form -->
+          <div class="ppto-form-panel">
+            <!-- Cliente -->
+            <div class="ppto-section">
+              <div class="ppto-section-title">👤 Clienta</div>
+              <select class="form-select" id="ppto-clienta" onchange="pptoActualizar()">
+                <option value="">— Nuevo cliente —</option>
+              </select>
+              <input type="text" class="form-input" id="ppto-nombre-nuevo" placeholder="Nombre de la nueva clienta" style="margin-top:8px;display:none">
+              <input type="text" class="form-input" id="ppto-tel-nuevo" placeholder="Teléfono / WhatsApp" style="margin-top:6px;display:none">
+            </div>
+
+            <!-- Servicio -->
+            <div class="ppto-section">
+              <div class="ppto-section-title">💅 Servicio</div>
+              <div class="grid-2" style="margin-bottom:12px">
+                <div class="form-group">
+                  <label class="form-label">Tipo de servicio</label>
+                  <select class="form-select" id="ppto-tipo" onchange="pptoActualizar()">
+                    <option value="acrilicas">Uñas Acrílicas</option>
+                    <option value="gel">Uñas de Gel</option>
+                    <option value="encapsulado">Encapsulado</option>
+                    <option value="polygel">Polygel</option>
+                    <option value="relleno">Relleno</option>
+                    <option value="natural">Diseño en Natural</option>
+                    <option value="retiro">Retiro</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Sistema</label>
+                  <select class="form-select" id="ppto-sistema" onchange="pptoActualizar()">
+                    <option value="completo">Completo</option>
+                    <option value="media">Media uña</option>
+                    <option value="natural">Diseño en natural</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Largo -->
+              <label class="form-label" style="margin-bottom:8px">Largo</label>
+              <div class="ppto-cards" id="ppto-largo-cards">
+                <div class="ppto-card" data-val="S" onclick="pptoSelLargo(this)">
+                  <span class="ppto-card-icon">✂️</span>
+                  <div class="ppto-card-label">S - Corto</div>
+                  <div class="ppto-card-sub">x1.0</div>
+                </div>
+                <div class="ppto-card active" data-val="M" onclick="pptoSelLargo(this)">
+                  <span class="ppto-card-icon">📏</span>
+                  <div class="ppto-card-label">M - Medio</div>
+                  <div class="ppto-card-sub">x1.15</div>
+                </div>
+                <div class="ppto-card" data-val="L" onclick="pptoSelLargo(this)">
+                  <span class="ppto-card-icon">💖</span>
+                  <div class="ppto-card-label">L - Largo</div>
+                  <div class="ppto-card-sub">x1.30</div>
+                </div>
+                <div class="ppto-card" data-val="XL" onclick="pptoSelLargo(this)">
+                  <span class="ppto-card-icon">💅</span>
+                  <div class="ppto-card-label">XL - Extra largo</div>
+                  <div class="ppto-card-sub">x1.50</div>
+                </div>
+              </div>
+
+              <!-- Forma -->
+              <label class="form-label" style="margin:14px 0 8px">Forma</label>
+              <div class="ppto-cards" id="ppto-forma-cards">
+                <div class="ppto-card" data-val="cuadrada" onclick="pptoSelForma(this)">
+                  <span class="ppto-card-icon">⬜</span>
+                  <div class="ppto-card-label">Cuadrada</div>
+                  <div class="ppto-card-sub">x1.0</div>
+                </div>
+                <div class="ppto-card" data-val="redonda" onclick="pptoSelForma(this)">
+                  <span class="ppto-card-icon">⚪</span>
+                  <div class="ppto-card-label">Redonda</div>
+                  <div class="ppto-card-sub">x1.0</div>
+                </div>
+                <div class="ppto-card active" data-val="coffin" onclick="pptoSelForma(this)">
+                  <span class="ppto-card-icon">⚰️</span>
+                  <div class="ppto-card-label">Coffin/Stiletto</div>
+                  <div class="ppto-card-sub">x1.20</div>
+                </div>
+                <div class="ppto-card" data-val="almendra" onclick="pptoSelForma(this)">
+                  <span class="ppto-card-icon">💎</span>
+                  <div class="ppto-card-label">Almendra</div>
+                  <div class="ppto-card-sub">x1.15</div>
+                </div>
+                <div class="ppto-card" data-val="ovalada" onclick="pptoSelForma(this)">
+                  <span class="ppto-card-icon">🥚</span>
+                  <div class="ppto-card-label">Ovalada</div>
+                  <div class="ppto-card-sub">x1.05</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Extras -->
+            <div class="ppto-section">
+              <div class="ppto-section-title">✨ Extras</div>
+              <div class="ppto-chips" id="ppto-extras-chips"></div>
+            </div>
+
+            <!-- Materiales -->
+            <div class="ppto-section">
+              <div class="ppto-section-title">🧪 Materiales usados</div>
+              <div id="ppto-materiales-list"></div>
+              <div style="font-size:11px;color:var(--text3);margin-top:8px">Los materiales se calculan según el tipo de servicio. Puedes ajustar las cantidades.</div>
+            </div>
+
+            <!-- Imagen de referencia -->
+            <div class="ppto-section">
+              <div class="ppto-section-title">📸 Imagen de referencia</div>
+              <input type="url" class="form-input" id="ppto-ref-url" placeholder="Pega aquí la URL de la imagen de referencia" oninput="pptoPreviewRef()">
+              <img id="ppto-ref-img" class="ppto-ref-preview" alt="Referencia">
+            </div>
+
+            <!-- Notas -->
+            <div class="ppto-section">
+              <div class="ppto-section-title">📝 Notas</div>
+              <textarea class="form-textarea" id="ppto-notas" placeholder="Ej: La clienta quiere el diseño de la foto, prefiere tonos pastel, alergia a cromo..." oninput="pptoActualizar()"></textarea>
+            </div>
+          </div>
+
+          <!-- RIGHT: Results -->
+          <div class="ppto-result-panel">
+            <div class="ppto-total-card">
+              <div style="text-align:center;margin-bottom:8px">
+                <div class="ppto-total-label">Estimación de tiempo</div>
+                <div class="ppto-total-value" id="ppto-tiempo" style="font-size:16px;color:var(--lila)">~2h 00min</div>
+              </div>
+              <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:8px">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <span class="ppto-total-label">Subtotal materiales</span>
+                  <span class="ppto-total-value" id="ppto-mat-subtotal">$0.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <span class="ppto-total-label">Mano de obra</span>
+                  <span class="ppto-total-value" id="ppto-labor-cost">$0.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <span class="ppto-total-label">Total extras</span>
+                  <span class="ppto-total-value" id="ppto-extras-total">$0.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <span class="ppto-total-label">Subtotal</span>
+                  <span class="ppto-total-value" id="ppto-subtotal" style="color:var(--text);font-weight:600">$0.00</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                  <span class="ppto-total-label">Margen ganancia</span>
+                  <input type="number" class="form-input" id="ppto-margen" value="30" min="0" max="200" step="5" oninput="pptoActualizar()" style="width:70px;text-align:center;padding:4px 6px;font-size:13px">
+                  <span style="font-size:13px;color:var(--text3)">%</span>
+                </div>
+              </div>
+              <div class="ppto-grand-total" id="ppto-total-final">$0.00</div>
+              <div style="text-align:center;font-size:12px;color:var(--text3);margin-bottom:14px" id="ppto-total-bs">≈ Bs 0.00</div>
+            </div>
+
+            <div class="ppto-actions">
+              <button class="btn btn-ghost" style="flex:1;font-size:12px" onclick="pptoImprimir()">🧾 Imprimir</button>
+              <button class="btn btn-ghost" style="flex:1;font-size:12px" onclick="pptoGuardar()">💾 Guardar</button>
+              <button class="btn btn-primary" style="flex:1.5;font-size:13px" onclick="pptoWhatsApp()">💬 WhatsApp</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /page-presupuesto -->
+
+      <!-- ===== MIS COSTOS ===== -->
+      <div class="page" id="page-miscostos">
+        <div class="section-header">
+          <div>
+            <div class="section-title">⏱️ Mis Costos</div>
+            <div class="section-subtitle">Gestiona tus materiales y calcula tus ganancias</div>
+          </div>
+          <button class="btn btn-primary" onclick="mcAbrirAgregar()">➕ Agregar Material</button>
+        </div>
+
+        <!-- Tarifa por hora -->
+        <div class="mc-tarifa-card" style="margin-bottom:20px">
+          <div style="font-size:13px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:.8px">💳 Tarifa por hora</div>
+          <div class="mc-tarifa-value" id="mc-tarifa-display">$5.00</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px">
+            <span style="font-size:12px;color:var(--text3)">USD/hora</span>
+            <input type="number" class="form-input" id="mc-tarifa-input" value="5" min="0" step="0.5" style="width:100px;text-align:center;padding:6px 8px" oninput="mcActualizarTarifa()">
+            <button class="btn btn-ghost btn-sm" onclick="mcGuardarTarifa()">💾</button>
+          </div>
+          <div style="font-size:11px;color:var(--text3);max-width:400px;margin:0 auto;line-height:1.5">
+            💡 En Venezuela, la tarifa por hora se calcula según tus costos de vida. Si trabajas desde casa, considera electricidad, internet, agua y depreciación de equipos.
+          </div>
+        </div>
+
+        <!-- Calculadora rápida -->
+        <div class="mc-tarifa-calc" style="margin-bottom:20px">
+          <div class="ppto-section-title" style="margin-bottom:12px">🧮 Calculadora rápida de tarifa</div>
+          <div class="grid-3">
+            <div class="form-group">
+              <label class="form-label">¿Ganancia mensual deseada? ($)</label>
+              <input type="number" class="form-input" id="mc-calc-meta" value="500" min="0" oninput="mcCalcTarifa()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Días al mes</label>
+              <input type="number" class="form-input" id="mc-calc-dias" value="24" min="1" max="31" oninput="mcCalcTarifa()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Horas por día</label>
+              <input type="number" class="form-input" id="mc-calc-horas" value="8" min="1" max="16" oninput="mcCalcTarifa()">
+            </div>
+          </div>
+          <div class="mc-tarifa-calc-result" id="mc-calc-result">Tu tarifa sugerida: $2.60/hora</div>
+        </div>
+
+        <!-- Catálogo de materiales -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+          <div class="mc-cat-tabs" id="mc-cat-tabs">
+            <button class="mc-cat-tab active" data-cat="" onclick="mcFiltrarCat('',this)">Todos</button>
+            <button class="mc-cat-tab" data-cat="Polvos" onclick="mcFiltrarCat('Polvos',this)">Polvos</button>
+            <button class="mc-cat-tab" data-cat="Gel" onclick="mcFiltrarCat('Gel',this)">Gel</button>
+            <button class="mc-cat-tab" data-cat="Decoraciones" onclick="mcFiltrarCat('Decoraciones',this)">Decoraciones</button>
+            <button class="mc-cat-tab" data-cat="Herramientas" onclick="mcFiltrarCat('Herramientas',this)">Herramientas</button>
+            <button class="mc-cat-tab" data-cat="Consumibles" onclick="mcFiltrarCat('Consumibles',this)">Consumibles</button>
+            <button class="mc-cat-tab" data-cat="Otros" onclick="mcFiltrarCat('Otros',this)">Otros</button>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="text" class="form-input" id="mc-buscar" placeholder="🔍 Buscar material..." oninput="mcRender()" style="width:180px;font-size:12px">
+          </div>
+        </div>
+        <div class="mc-mat-grid" id="mc-materiales-grid"></div>
+      </div><!-- /page-miscostos -->
+
     </div><!-- /pages-container -->
   </div><!-- /main-content -->
 </div><!-- /app -->
@@ -2699,6 +3015,85 @@
   </div>
 </div>
 
+<!-- MODAL: Agregar/Editar Material -->
+<div class="modal-overlay" id="modalMaterial">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="mat-modal-titulo">➕ Agregar Material</div>
+      <button class="btn-close" title="Cerrar" onclick="closeModal('modalMaterial')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="mat-edit-id" value="">
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">Nombre del material</label>
+          <input type="text" class="form-input" id="mat-nombre" placeholder="Ej: Polvo acrílico transparente">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Categoría</label>
+          <select class="form-select" id="mat-categoria">
+            <option value="Polvos">Polvos</option>
+            <option value="Gel">Gel</option>
+            <option value="Decoraciones">Decoraciones</option>
+            <option value="Herramientas">Herramientas</option>
+            <option value="Consumibles">Consumibles</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">Precio de compra ($)</label>
+          <input type="number" class="form-input" id="mat-precio" placeholder="Ej: 15.00" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Unidad</label>
+          <select class="form-select" id="mat-unidad">
+            <option value="unidad">unidad</option>
+            <option value="par">par</option>
+            <option value="bolsa">bolsa</option>
+            <option value="frasco">frasco</option>
+            <option value="ml">ml</option>
+            <option value="gr">gr</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">Rendimiento (clientas)</label>
+          <input type="number" class="form-input" id="mat-rendimiento" placeholder="¿Cuántas clientas le rinde?" min="1" step="1">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Usos restantes</label>
+          <input type="number" class="form-input" id="mat-restantes" placeholder="Igual al rendimiento al inicio" min="0" step="1">
+        </div>
+      </div>
+      <div style="background:rgba(244,201,122,0.08);border:1px solid rgba(244,201,122,0.2);border-radius:10px;padding:10px;font-size:12px;color:var(--text2)">
+        💰 Costo por clienta: <strong id="mat-costo-preview" style="color:var(--gold);font-family:var(--mono)">$0.00</strong>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalMaterial')">Cancelar</button>
+      <button class="btn btn-danger btn-sm" id="mat-btn-delete" onclick="mcEliminarMaterial()" style="display:none">🗑️ Eliminar</button>
+      <button class="btn btn-primary" onclick="mcGuardarMaterial()">💾 Guardar Material</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Historial de presupuestos -->
+<div class="modal-overlay" id="modalPptoHist">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div class="modal-title">📋 Historial de Presupuestos</div>
+      <button class="btn-close" title="Cerrar" onclick="closeModal('modalPptoHist')">✕</button>
+    </div>
+    <div class="modal-body" id="ppto-hist-body" style="max-height:60vh;overflow-y:auto"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalPptoHist')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST CONTAINER -->
 <div id="toast-container"></div>
 
@@ -3139,9 +3534,9 @@ function showPage(page,el){
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   if(el)el.classList.add('active');
   else{var ni=document.querySelector('.nav-item[data-page="'+page+'"]');if(ni)ni.classList.add('active');}
-  var titles={pos:'💳 Cobro / POS',dashboard:'🏠 Dashboard',historial:'📋 Historial',agenda:'📅 Agenda',servicios:'💅 Servicios',clientas:'👩‍🦰 Clientas',materiales:'🧴 Materiales',caja:'💰 Caja',reportes:'📊 Reportes',config:'⚙️ Configuración'};
+  var titles={pos:'💳 Cobro / POS',dashboard:'🏠 Dashboard',historial:'📋 Historial',agenda:'📅 Agenda',servicios:'💅 Servicios',clientas:'👩‍🦰 Clientas',materiales:'🧴 Materiales',caja:'💰 Caja',reportes:'📊 Reportes',presupuesto:'🧮 Presupuesto',miscostos:'⏱️ Mis Costos',config:'⚙️ Configuración'};
   set$('topbar-title',titles[page]||page);
-  var renders={pos:renderPosGrid,dashboard:renderDashboard,historial:renderHistorial,agenda:renderAgenda,servicios:renderServicios,clientas:renderClientas,materiales:renderMateriales,caja:renderCaja,reportes:renderReportes,config:renderConfig};
+  var renders={pos:renderPosGrid,dashboard:renderDashboard,historial:renderHistorial,agenda:renderAgenda,servicios:renderServicios,clientas:renderClientas,materiales:renderMateriales,caja:renderCaja,reportes:renderReportes,presupuesto:renderPresupuesto,miscostos:renderMisCostos,config:renderConfig};
   if(renders[page])renders[page]();
 }
 
@@ -3452,10 +3847,10 @@ function verClienta(id){
   var c=null;for(var i=0;i<all.length;i++){if(all[i].id===id){c=all[i];break;}}
   if(!c){abrirModalClienta(id);return;}
   gel('perfil-cli-titulo').textContent='👩‍🦰 '+c.nombre;
-  // Calculate stats
   var citas=DB.get('citas')||[];
   var ventas=DB.get('ventas')||[];
   var servs=DB.get('servicios')||[];
+  var presupuestos=DB.get('ns_presupuestos')||[];
   var misCitas=citas.filter(function(ct){return ct.clientaId===id;});
   var misCitasCompletadas=misCitas.filter(function(ct){return ct.estado==='completada';});
   var totalGastado=0;
@@ -3473,8 +3868,72 @@ function verClienta(id){
     var sorted=misCitas.slice().sort(function(a,b){return(b.fecha+b.hora).localeCompare(a.fecha+a.hora);});
     ultimaVisita=sorted[0].fecha+' '+sorted[0].hora;
   }
-  // Recent history (last 10)
-  var recent=misCitas.slice().sort(function(a,b){return(b.fecha+b.hora).localeCompare(a.fecha+a.hora);}).slice(0,10);
+  var recent=misCitas.slice().sort(function(a,b){return(b.fecha+b.hora).localeCompare(a.fecha+a.hora);});
+  // Enhanced: Last service
+  var ultimoServHtml='';
+  if(recent.length){
+    var last=recent[0];
+    var servL=null;for(var si=0;si<servs.length;si++){if(servs[si].id===last.servicioId){servL=servs[si];break;}}
+    var lastVenta=null;
+    for(var vi=0;vi<ventas.length;vi++){if(ventas[vi].citaId===last.id){lastVenta=ventas[vi];break;}}
+    ultimoServHtml='<div class="cli-ultimo-serv">'+
+      '<div style="font-size:11px;font-weight:700;color:var(--success);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">✅ Último servicio</div>'+
+      '<div style="display:flex;justify-content:space-between;align-items:center">'+
+        '<div><div style="font-size:13px;font-weight:600;color:var(--text)">'+(servL?servL.emoji+' '+servL.nombre:'—')+'</div>'+
+        '<div style="font-size:11px;color:var(--text3)">'+last.fecha+' '+last.hora+'</div></div>'+
+        '<div style="text-align:right"><div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--gold)">'+fmt$(lastVenta?lastVenta.total:last.precio||0)+'</div>'+
+        '<div style="font-size:10px;color:var(--text3)">'+(lastVenta?lastVenta.metodo:'')+'</div></div>'+
+      '</div>'+
+      (last.nota?'<div style="font-size:11px;color:var(--text3);margin-top:6px;font-style:italic">"'+last.nota+'"</div>':'')+
+    '</div>';
+  }
+  // Enhanced: Preference tags
+  var allPrefTags=['Prefiere tonos oscuros','No usa acrílico','Alergia al cromo','Siempre pide diseño elaborado','Prefiere tonos pastel','Coffin/Stiletto siempre','Natural con diseño','Relleno cada 3 semanas','Paga con Zelle','Cliente VIP','Retiro sin problema'];
+  var activePrefs=c.preferencias||[];
+  var prefsHtml='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:14px">'+
+    '<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px">🏷️ Preferencias</div>'+
+    '<div class="cli-pref-tags">'+allPrefTags.map(function(tag){
+      var isActive=activePrefs.indexOf(tag)>=0;
+      return'<span class="cli-pref-tag'+(isActive?' active':'')+'" onclick="toggleClientaPref(\''+tag.replace(/'/g,"\\'")+'\')">'+tag+'</span>';
+    }).join('')+'</div></div>';
+  // Enhanced: Notes
+  var notasHtml='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:14px">'+
+    '<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px">📝 Notas generales</div>'+
+    '<textarea class="form-textarea" id="perfil-cli-notas" placeholder="Anotaciones sobre esta clienta..." style="min-height:60px;font-size:13px" onblur="guardarNotasClienta()">'+(c.notas||'')+'</textarea></div>';
+  // Reference images from past presupuestos
+  var refImgs=[];
+  var misPptos=presupuestos.filter(function(p){return p.clientaId===id;});
+  misPptos.forEach(function(p){if(p.refImg&&refImgs.indexOf(p.refImg)<0)refImgs.push(p.refImg);});
+  var refHtml='';
+  if(refImgs.length){
+    refHtml='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:14px">'+
+      '<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px">📸 Fotos de referencia guardadas</div>'+
+      '<div class="cli-ref-imgs">'+refImgs.map(function(url){
+        return'<a href="'+url+'" target="_blank"><img src="'+url+'" class="cli-ref-thumb" alt="Ref" onerror="this.style.display=\'none\'"></a>';
+      }).join('')+'</div></div>';
+  }
+  // Enhanced: Collapsible history
+  var histHtml='<div class="cli-hist-toggle" onclick="toggleCliHist(this)"><span class="arrow">▶</span> Historial de servicios ('+recent.length+')</div>'+
+    '<div id="cli-hist-list" style="display:none">';
+  if(recent.length){
+    histHtml+=recent.map(function(ct){
+      var serv=null;for(var si=0;si<servs.length;si++){if(servs[si].id===ct.servicioId){serv=servs[si];break;}}
+      var estadoBadge=ct.estado==='completada'?'<span class="badge badge-success">Completada</span>':ct.estado==='cancelada'?'<span class="badge badge-danger">Cancelada</span>':ct.estado==='confirmada'?'<span class="badge badge-gold">Confirmada</span>':'<span class="badge badge-rose">Pendiente</span>';
+      return'<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--card);border-radius:8px;margin-bottom:4px;border:1px solid var(--border);cursor:pointer" onclick="closeModal(\'modalPerfilClienta\');verCita(\''+ct.id+'\')">'+
+        '<div style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--rose);min-width:44px">'+ct.fecha.slice(5)+' '+ct.hora+'</div>'+
+        '<div style="flex:1">'+
+          '<div style="font-size:12px;font-weight:600;color:var(--text)">'+(serv?serv.emoji+' '+serv.nombre:'Sin servicio')+'</div>'+
+          (ct.nota?'<div style="font-size:10px;color:var(--text3)">'+ct.nota.slice(0,50)+'</div>':'')+
+        '</div>'+
+        '<span style="font-family:var(--mono);font-size:12px;color:var(--gold)">'+fmt$(ct.precio||0)+'</span>'+
+        estadoBadge+
+      '</div>';
+    }).join('');
+  } else {
+    histHtml+='<div style="text-align:center;color:var(--text3);padding:20px">Sin citas registradas</div>';
+  }
+  histHtml+='</div>';
+
   var body=gel('perfil-cli-body');
   body.innerHTML=
     '<div style="text-align:center;margin-bottom:18px">'+
@@ -3500,33 +3959,42 @@ function verClienta(id){
         '<div style="font-size:10px;color:var(--text3);text-transform:uppercase;margin-top:2px">Última visita</div>'+
       '</div>'+
     '</div>'+
-    (c.formaFav||c.largoFav||c.colorFav?'<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:14px">'+
-      '<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px">📋 Preferencias</div>'+
-      (c.formaFav?'<span class="badge badge-fuchsia" style="margin-right:4px">Forma: '+c.formaFav+'</span>':'')+
-      (c.largoFav?'<span class="badge badge-lila" style="margin-right:4px">Largo: '+c.largoFav+'</span>':'')+
-      (c.colorFav?'<span class="badge badge-rose" style="margin-right:4px">Color: '+c.colorFav+'</span>':'')+
-    '</div>':'')+
-    (c.notas?'<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:14px">'+
-      '<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">📝 Notas</div>'+
-      '<div style="font-size:13px;color:var(--text2)">'+c.notas+'</div>'+
-    '</div>':'')+
-    '<div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px">📅 Historial Reciente</div>'+
-    (recent.length?recent.map(function(ct){
-      var serv=null;for(var si=0;si<servs.length;si++){if(servs[si].id===ct.servicioId){serv=servs[si];break;}}
-      var estadoBadge=ct.estado==='completada'?'<span class="badge badge-success">Completada</span>':ct.estado==='cancelada'?'<span class="badge badge-danger">Cancelada</span>':ct.estado==='confirmada'?'<span class="badge badge-gold">Confirmada</span>':'<span class="badge badge-rose">Pendiente</span>';
-      return'<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--card);border-radius:8px;margin-bottom:4px;border:1px solid var(--border);cursor:pointer" onclick="closeModal(\'modalPerfilClienta\');verCita(\''+ct.id+'\')">'+
-        '<div style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--rose);min-width:44px">'+ct.fecha.slice(5)+' '+ct.hora+'</div>'+
-        '<div style="flex:1">'+
-          '<div style="font-size:12px;font-weight:600;color:var(--text)">'+(serv?serv.emoji+' '+serv.nombre:'Sin servicio')+'</div>'+
-        '</div>'+
-        '<span style="font-family:var(--mono);font-size:12px;color:var(--gold)">'+fmt$(ct.precio||0)+'</span>'+
-        estadoBadge+
-      '</div>';
-    }).join(''):'<div style="text-align:center;color:var(--text3);padding:20px">Sin citas registradas</div>');
-  // WhatsApp button visibility
+    ultimoServHtml+
+    prefsHtml+
+    notasHtml+
+    refHtml+
+    histHtml;
   var waBtn=gel('perfil-wa-btn');
   if(waBtn)waBtn.style.display=c.telefono?'inline-flex':'none';
   openModal('modalPerfilClienta');
+}
+
+function toggleCliHist(el){
+  el.classList.toggle('open');
+  var list=gel('cli-hist-list');
+  if(list)list.style.display=list.style.display==='none'?'block':'none';
+}
+
+function toggleClientaPref(tag){
+  var all=DB.get('clientas')||[];
+  var c=null;for(var i=0;i<all.length;i++){if(all[i].id===_perfilClientaId){c=all[i];break;}}
+  if(!c)return;
+  if(!c.preferencias)c.preferencias=[];
+  var idx=c.preferencias.indexOf(tag);
+  if(idx>=0)c.preferencias.splice(idx,1);
+  else c.preferencias.push(tag);
+  DB.set('clientas',all);
+  verClienta(_perfilClientaId);
+}
+
+function guardarNotasClienta(){
+  var el=gel('perfil-cli-notas');
+  if(!el)return;
+  var all=DB.get('clientas')||[];
+  var c=null;for(var i=0;i<all.length;i++){if(all[i].id===_perfilClientaId){c=all[i];break;}}
+  if(!c)return;
+  c.notas=el.value.trim();
+  DB.set('clientas',all);
 }
 
 var _perfilClientaId='';
@@ -4746,6 +5214,563 @@ function cerrarQRScanner(){
   closeModal('modalQR');
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// PRESUPUESTO (Budget Calculator)
+// ═══════════════════════════════════════════════════════════════════
+
+var _pptoLargo='M';
+var _pptoForma='coffin';
+var _pptoExtras=[];
+var _pptoMatsSel=[];
+
+var EXTRAS_LIST=[
+  {id:'cristales',nombre:'Cristales regulares',precio:2},
+  {id:'swarovski',nombre:'Swarovski',precio:5},
+  {id:'chrome',nombre:'Efecto Espejo/Chrome',precio:3},
+  {id:'humo',nombre:'Efecto Humo',precio:4},
+  {id:'dibujo',nombre:'Dibujo a mano',precio:5},
+  {id:'franjas',nombre:'Franjas',precio:2},
+  {id:'pepita',nombre:'Pepita/Confetti',precio:1.5},
+  {id:'charms',nombre:'Charms',precio:3},
+  {id:'ombre',nombre:'Ombre/Baby Boomer',precio:3},
+  {id:'3d',nombre:'Diseño en 3D',precio:6},
+  {id:'stickers',nombre:'Pegatinas/Stickers',precio:1},
+  {id:'bullon',nombre:'Bullón',precio:2},
+  {id:'fluorescente',nombre:'Fluorescente/UV',precio:2},
+  {id:'cuticulas',nombre:'Retoque de cutículas',precio:1},
+  {id:'rusa',nombre:'Manicura rusa',precio:2}
+];
+
+var PRECIOS_SERVICIO={
+  acrilicas:15, gel:15, encapsulado:18, polygel:18, relleno:10, natural:8, retiro:5
+};
+
+var MOD_LARGO={S:1.0, M:1.15, L:1.30, XL:1.50};
+var MOD_FORMA={cuadrada:1.0, redonda:1.0, coffin:1.20, almendra:1.15, ovalada:1.05};
+var HORAS_SERVICIO={acrilicas:2.5, gel:2, encapsulado:2.5, polygel:2, relleno:1.5, natural:1.5, retiro:0.75};
+var HORAS_EXTRAS={cristales:0.15, swarovski:0.15, chrome:0.15, humo:0.15, dibujo:0.3, franjas:0.15, pepita:0.1, charms:0.1, ombre:0.2, '3d':0.3, stickers:0.1, bullon:0.1, fluorescente:0.1, cuticulas:0.1, rusa:0.15};
+
+var MATS_POR_SERVICIO={
+  acrilicas:['polvo_acril_trans','polvo_acril_color','liquido_mon','limas','pincel_acril','formas'],
+  gel:['gel_base','gel_builder','gel_top','limas','pincel_gel'],
+  encapsulado:['gel_base','gel_builder','gel_top','gel_color','limas','pincel_gel'],
+  polygel:['polygel_col','gel_base','gel_top','limas','pincel_acril','formas'],
+  relleno:['polvo_acril_trans','polvo_acril_color','liquido_mon','limas','pincel_acril'],
+  natural:['esmalte_base','esmalte_top','esmalte_color','removedor','algodon','aceite_cut'],
+  retiro:['removedor','algodon','guantes']
+};
+
+var MATERIALES_PRESET=[
+  {id:'polvo_acril_trans',nombre:'Polvo acrílico transparente - 500g',categoria:'Polvos',precio:15,unidad:'bolsa',rendimiento:50,restantes:50},
+  {id:'polvo_acril_color',nombre:'Polvo acrílico color (x10 colores)',categoria:'Polvos',precio:12,unidad:'unidad',rendimiento:40,restantes:40},
+  {id:'polvo_acril_blanco',nombre:'Polvo acrílico blanco cubridor - 250g',categoria:'Polvos',precio:8,unidad:'bolsa',rendimiento:30,restantes:30},
+  {id:'liquido_mon',nombre:'Líquido para acrílico (monómero) - 250ml',categoria:'Polvos',precio:10,unidad:'ml',rendimiento:60,restantes:60},
+  {id:'polvo_gel_acrgel',nombre:'Polvo de gel/Acrgel (x5 colores)',categoria:'Polvos',precio:18,unidad:'frasco',rendimiento:25,restantes:25},
+  {id:'polygel_col',nombre:'Polygel (x5 colores)',categoria:'Polvos',precio:15,unidad:'frasco',rendimiento:20,restantes:20},
+  {id:'pigmentos',nombre:'Pigmentos/Polvos de color (x8)',categoria:'Polvos',precio:6,unidad:'frasco',rendimiento:60,restantes:60},
+  {id:'gel_base',nombre:'Gel base - 15ml',categoria:'Gel',precio:12,unidad:'frasco',rendimiento:40,restantes:40},
+  {id:'gel_builder',nombre:'Gel de construcción (builder) - 30ml',categoria:'Gel',precio:18,unidad:'frasco',rendimiento:30,restantes:30},
+  {id:'gel_color',nombre:'Gel color (x12 colores)',categoria:'Gel',precio:8,unidad:'frasco',rendimiento:35,restantes:35},
+  {id:'gel_top',nombre:'Gel top coat - 15ml',categoria:'Gel',precio:14,unidad:'frasco',rendimiento:40,restantes:40},
+  {id:'gel_mate',nombre:'Gel mate - 15ml',categoria:'Gel',precio:10,unidad:'frasco',rendimiento:35,restantes:35},
+  {id:'cristales_reg',nombre:'Cristales regulares - bolsa',categoria:'Decoraciones',precio:5,unidad:'bolsa',rendimiento:15,restantes:15},
+  {id:'swarovski_paq',nombre:'Cristales Swarovski (paquete)',categoria:'Decoraciones',precio:25,unidad:'paquete',rendimiento:8,restantes:8},
+  {id:'piedras_mar',nombre:'Piedras de mar',categoria:'Decoraciones',precio:4,unidad:'bolsa',rendimiento:20,restantes:20},
+  {id:'charms_paq',nombre:'Charms/Dije (paquete)',categoria:'Decoraciones',precio:6,unidad:'paquete',rendimiento:10,restantes:10},
+  {id:'bullon_micro',nombre:'Bullón/Micro esferas',categoria:'Decoraciones',precio:3,unidad:'bolsa',rendimiento:25,restantes:25},
+  {id:'stickers_agua',nombre:'Pegatinas/Stickers de agua (pliego)',categoria:'Decoraciones',precio:3,unidad:'unidad',rendimiento:20,restantes:20},
+  {id:'foil_trans',nombre:'Foil de transferencia (rollo)',categoria:'Decoraciones',precio:5,unidad:'rollo',rendimiento:30,restantes:30},
+  {id:'chrome_polvo',nombre:'Efecto espejo/Chrome (polvo)',categoria:'Decoraciones',precio:8,unidad:'frasco',rendimiento:25,restantes:25},
+  {id:'chrome_especial',nombre:'Efecto humo/Chrome especial',categoria:'Decoraciones',precio:10,unidad:'frasco',rendimiento:20,restantes:20},
+  {id:'gliter',nombre:'Gliter (x6 colores)',categoria:'Decoraciones',precio:3,unidad:'frasco',rendimiento:40,restantes:40},
+  {id:'fluor_uv',nombre:'Fluorescente/UV (x4 colores)',categoria:'Decoraciones',precio:5,unidad:'frasco',rendimiento:30,restantes:30},
+  {id:'diamantina',nombre:'Diamantina imitación (rollo)',categoria:'Decoraciones',precio:4,unidad:'rollo',rendimiento:15,restantes:15},
+  {id:'ombre_pow',nombre:'Ombre powder (x3 tonos)',categoria:'Decoraciones',precio:7,unidad:'frasco',rendimiento:20,restantes:20},
+  {id:'velvet',nombre:'Velvet/Flocking powder',categoria:'Decoraciones',precio:6,unidad:'frasco',rendimiento:15,restantes:15},
+  {id:'limas',nombre:'Limas x100',categoria:'Herramientas',precio:8,unidad:'bolsa',rendimiento:100,restantes:100},
+  {id:'pincel_acril',nombre:'Pincel para acrílico',categoria:'Herramientas',precio:12,unidad:'unidad',rendimiento:200,restantes:200},
+  {id:'pincel_gel',nombre:'Pincel para gel (detalle)',categoria:'Herramientas',precio:10,unidad:'unidad',rendimiento:200,restantes:200},
+  {id:'pincel_onestroke',nombre:'Pincel one stroke',categoria:'Herramientas',precio:8,unidad:'unidad',rendimiento:200,restantes:200},
+  {id:'formas',nombre:'Formas/Tips x500',categoria:'Herramientas',precio:10,unidad:'bolsa',rendimiento:100,restantes:100},
+  {id:'esmalte_base',nombre:'Esmalte base coat',categoria:'Consumibles',precio:5,unidad:'unidad',rendimiento:30,restantes:30},
+  {id:'esmalte_top',nombre:'Esmalte top coat',categoria:'Consumibles',precio:6,unidad:'unidad',rendimiento:30,restantes:30},
+  {id:'esmalte_color',nombre:'Esmalte color (x20 colores)',categoria:'Consumibles',precio:2,unidad:'unidad',rendimiento:25,restantes:25},
+  {id:'removedor',nombre:'Removedor/Acetona - 500ml',categoria:'Consumibles',precio:5,unidad:'ml',rendimiento:40,restantes:40},
+  {id:'algodon',nombre:'Algodón (rollo)',categoria:'Consumibles',precio:3,unidad:'unidad',rendimiento:100,restantes:100},
+  {id:'tissue',nombre:'Tissue/Cinta',categoria:'Consumibles',precio:2,unidad:'unidad',rendimiento:80,restantes:80},
+  {id:'aceite_cut',nombre:'Aceite cutículas',categoria:'Consumibles',precio:5,unidad:'frasco',rendimiento:60,restantes:60},
+  {id:'masking',nombre:'Masking tape/Cinta',categoria:'Consumibles',precio:3,unidad:'unidad',rendimiento:50,restantes:50},
+  {id:'guantes',nombre:'Guantes (caja x100)',categoria:'Consumibles',precio:4,unidad:'caja',rendimiento:100,restantes:100}
+];
+
+function mcInitMateriales(){
+  var existing=DB.get('ns_materiales_costos');
+  if(!existing||existing.length===0){
+    DB.set('ns_materiales_costos',MATERIALES_PRESET);
+  }
+}
+
+function renderPresupuesto(){
+  var clientas=DB.get('clientas')||[];
+  var sel=gel('ppto-clienta');
+  if(sel){
+    var curVal=sel.value;
+    sel.innerHTML='<option value="">— Nuevo cliente —</option>'+clientas.map(function(c){
+      return'<option value="'+c.id+'">'+c.nombre+'</option>';
+    }).join('');
+    sel.value=curVal;
+  }
+  var nuevoNombre=gel('ppto-nombre-nuevo');
+  var nuevoTel=gel('ppto-tel-nuevo');
+  if(nuevoNombre)nuevoNombre.style.display=(!sel||!sel.value)?'block':'none';
+  if(nuevoTel)nuevoTel.style.display=(!sel||!sel.value)?'block':'none';
+  var chipsEl=gel('ppto-extras-chips');
+  if(chipsEl){
+    chipsEl.innerHTML=EXTRAS_LIST.map(function(e){
+      var isActive=_pptoExtras.indexOf(e.id)>=0;
+      return'<span class="ppto-chip'+(isActive?' active':'')+'" onclick="pptoToggleExtra(\''+e.id+'\')">'+e.nombre+(isActive?' ✅':'')+'</span>';
+    }).join('');
+  }
+  pptoActualizar();
+}
+
+function pptoSelLargo(el){
+  document.querySelectorAll('#ppto-largo-cards .ppto-card').forEach(function(c){c.classList.remove('active');});
+  el.classList.add('active');
+  _pptoLargo=el.getAttribute('data-val');
+  pptoActualizar();
+}
+
+function pptoSelForma(el){
+  document.querySelectorAll('#ppto-forma-cards .ppto-card').forEach(function(c){c.classList.remove('active');});
+  el.classList.add('active');
+  _pptoForma=el.getAttribute('data-val');
+  pptoActualizar();
+}
+
+function pptoToggleExtra(id){
+  var idx=_pptoExtras.indexOf(id);
+  if(idx>=0)_pptoExtras.splice(idx,1);
+  else _pptoExtras.push(id);
+  renderPresupuesto();
+}
+
+function pptoPreviewRef(){
+  var url=(gel('ppto-ref-url')||{}).value||'';
+  var img=gel('ppto-ref-img');
+  if(!img)return;
+  if(url&&url.match(/^https?:\/\/.+/)){
+    img.src=url;img.classList.add('show');
+    img.onerror=function(){this.classList.remove('show');};
+  } else {
+    img.classList.remove('show');img.src='';
+  }
+}
+
+function calcularPresupuesto(){
+  var config=getCfg();
+  var materiales=DB.get('ns_materiales_costos')||[];
+  var tipoServicio=(gel('ppto-tipo')||{}).value||'acrilicas';
+  var sistema=(gel('ppto-sistema')||{}).value||'completo';
+  var precioBase=PRECIOS_SERVICIO[tipoServicio]||0;
+  var modLargo=MOD_LARGO[_pptoLargo]||1;
+  var modForma=MOD_FORMA[_pptoForma]||1;
+  var modSistema=sistema==='completo'?1:sistema==='media'?0.7:0.5;
+  var totalExtras=0;
+  _pptoExtras.forEach(function(eid){
+    var ex=EXTRAS_LIST.find(function(x){return x.id===eid;});
+    if(ex)totalExtras+=ex.precio;
+  });
+  var matIds=MATS_POR_SERVICIO[tipoServicio]||[];
+  if(_pptoMatsSel.length===0||_pptoMatsSel._tipo!==tipoServicio){
+    _pptoMatsSel=[];_pptoMatsSel._tipo=tipoServicio;
+    matIds.forEach(function(mid){
+      var mat=materiales.find(function(m){return m.id===mid;});
+      if(mat)_pptoMatsSel.push({id:mid,cantidad:modSistema<1?0.5:1});
+    });
+  }
+  var costoMateriales=0;
+  _pptoMatsSel.forEach(function(ms){
+    var mat=materiales.find(function(m){return m.id===ms.id;});
+    if(mat&&mat.rendimiento>0)costoMateriales+=(mat.precio/mat.rendimiento)*ms.cantidad;
+  });
+  var horasEstimadas=HORAS_SERVICIO[tipoServicio]||2;
+  var horasExtras=0;
+  _pptoExtras.forEach(function(eid){horasExtras+=(HORAS_EXTRAS[eid]||0);});
+  horasEstimadas+=horasExtras;
+  var tarifaHora=config.tarifaHora||5;
+  var costoLabor=horasEstimadas*tarifaHora;
+  var subtotal=precioBase*modLargo*modForma*modSistema+costoMateriales+costoLabor+totalExtras;
+  var margen=parseFloat((gel('ppto-margen')||{}).value)||30;
+  var totalConMargen=subtotal*(1+margen/100);
+  return{precioBase:precioBase,costoMateriales:costoMateriales,costoLabor:costoLabor,totalExtras:totalExtras,subtotal:subtotal,margen:margen,totalConMargen:totalConMargen,horasEstimadas:horasEstimadas,tarifaHora:tarifaHora,modLargo:modLargo,modForma:modForma,modSistema:modSistema,tipoServicio:tipoServicio,sistema:sistema};
+}
+
+function pptoActualizar(){
+  var r=calcularPresupuesto();
+  var cfg=getCfg();
+  set$('ppto-mat-subtotal',fmt$(r.costoMateriales));
+  set$('ppto-labor-cost',fmt$(r.costoLabor)+' ('+r.horasEstimadas.toFixed(1)+'h × '+fmt$(r.tarifaHora)+'/h)');
+  set$('ppto-extras-total',fmt$(r.totalExtras));
+  set$('ppto-subtotal',fmt$(r.subtotal));
+  set$('ppto-total-final',fmt$(r.totalConMargen));
+  set$('ppto-total-bs','≈ Bs '+(r.totalConMargen*(cfg.tasa||40)).toFixed(2));
+  var hrs=Math.floor(r.horasEstimadas);
+  var mins=Math.round((r.horasEstimadas-hrs)*60);
+  set$('ppto-tiempo','~'+hrs+'h '+String(mins).padStart(2,'0')+'min');
+  var materiales=DB.get('ns_materiales_costos')||[];
+  var matList=gel('ppto-materiales-list');
+  if(matList){
+    if(_pptoMatsSel.length===0){
+      matList.innerHTML='<div style="text-align:center;color:var(--text3);padding:16px;font-size:13px">Selecciona un tipo de servicio para ver los materiales</div>';
+    } else {
+      matList.innerHTML=_pptoMatsSel.map(function(ms,idx){
+        var mat=materiales.find(function(m){return m.id===ms.id;});
+        if(!mat)return'';
+        var costPorCliente=mat.rendimiento>0?(mat.precio/mat.rendimiento)*ms.cantidad:0;
+        return'<div class="ppto-mat-row"><span class="ppto-mat-name">'+mat.nombre+'</span><input type="number" class="form-input ppto-mat-qty" value="'+ms.cantidad+'" min="0.1" max="5" step="0.1" onchange="pptoCambiarMatQty('+idx+',this.value)"><span class="ppto-mat-cost">'+fmt$(costPorCliente)+'</span></div>';
+      }).join('');
+    }
+  }
+}
+
+function pptoCambiarMatQty(idx,val){
+  if(_pptoMatsSel[idx])_pptoMatsSel[idx].cantidad=Math.max(0.1,parseFloat(val)||1);
+  pptoActualizar();
+}
+
+function pptoGuardar(){
+  var r=calcularPresupuesto();
+  var clientaId=(gel('ppto-clienta')||{}).value||'';
+  var clientaNombre='';
+  if(clientaId){
+    var clientas=DB.get('clientas')||[];
+    var cli=clientas.find(function(c){return c.id===clientaId;});
+    if(cli)clientaNombre=cli.nombre;
+  } else {
+    clientaNombre=(gel('ppto-nombre-nuevo')||{}).value||'Nuevo cliente';
+  }
+  var refImg=(gel('ppto-ref-url')||{}).value||'';
+  var notas=(gel('ppto-notas')||{}).value||'';
+  var ppto={id:uid(),clientaId:clientaId,clientaNombre:clientaNombre,tipoServicio:r.tipoServicio,sistema:r.sistema,largo:_pptoLargo,forma:_pptoForma,extras:_pptoExtras.slice(),materiales:_pptoMatsSel.slice(),refImg:refImg,notas:notas,resultado:r,fecha:todayStr(),ts:Date.now()};
+  var all=DB.get('ns_presupuestos')||[];
+  all.push(ppto);
+  DB.set('ns_presupuestos',all);
+  showToast('Presupuesto guardado','success');
+}
+
+function pptoWhatsApp(){
+  var r=calcularPresupuesto();
+  var clientaId=(gel('ppto-clienta')||{}).value||'';
+  var clientaNombre='';var phone='';
+  if(clientaId){
+    var clientas=DB.get('clientas')||[];
+    var cli=clientas.find(function(c){return c.id===clientaId;});
+    if(cli){clientaNombre=cli.nombre;phone=cli.telefono||'';}
+  } else {
+    clientaNombre=(gel('ppto-nombre-nuevo')||{}).value||'Nueva clienta';
+    phone=(gel('ppto-tel-nuevo')||{}).value||'';
+  }
+  var cfg=getCfg();
+  var tipoNombres={acrilicas:'Uñas Acrílicas',gel:'Uñas de Gel',encapsulado:'Encapsulado',polygel:'Polygel',relleno:'Relleno',natural:'Diseño en Natural',retiro:'Retiro'};
+  var formaNombres={cuadrada:'Cuadrada',redonda:'Redonda',coffin:'Coffin/Stiletto',almendra:'Almendra',ovalada:'Ovalada'};
+  var sistemaNombres={completo:'Completo',media:'Media uña',natural:'Diseño en natural'};
+  var msg='💅 *'+(cfg.nombre||'ZYNC NAILS ART')+' — Presupuesto*\n\n';
+  msg+='👤 *Cliente:* '+clientaNombre+'\n';
+  msg+='📅 *Fecha:* '+todayStr()+'\n\n';
+  msg+='📋 *SERVICIO:*\n';
+  msg+='• Tipo: '+(tipoNombres[r.tipoServicio]||r.tipoServicio)+'\n';
+  msg+='• Sistema: '+(sistemaNombres[r.sistema]||r.sistema)+'\n';
+  msg+='• Largo: '+_pptoLargo+'\n';
+  msg+='• Forma: '+(formaNombres[_pptoForma]||_pptoForma)+'\n\n';
+  if(_pptoExtras.length){
+    msg+='✨ *EXTRAS:*\n';
+    _pptoExtras.forEach(function(eid){var ex=EXTRAS_LIST.find(function(x){return x.id===eid;});if(ex)msg+='• '+ex.nombre+' ('+fmt$(ex.precio)+')\n';});
+    msg+='\n';
+  }
+  msg+='💰 *DETALLE:*\n';
+  msg+='• Materiales: '+fmt$(r.costoMateriales)+'\n';
+  msg+='• Mano de obra ('+r.horasEstimadas.toFixed(1)+'h × '+fmt$(r.tarifaHora)+'/h): '+fmt$(r.costoLabor)+'\n';
+  msg+='━━━━━━━━━━━━\n';
+  msg+='💵 *TOTAL: '+fmt$(r.totalConMargen)+'*\n';
+  msg+='≈ Bs '+(r.totalConMargen*(cfg.tasa||40)).toFixed(2)+'\n\n';
+  var incluyeItems=[];
+  if(_pptoExtras.indexOf('cuticulas')>=0)incluyeItems.push('• Retoque de cutículas');
+  if(_pptoExtras.indexOf('rusa')>=0)incluyeItems.push('• Manicura rusa');
+  incluyeItems.push('• Duración estimada: ~'+Math.floor(r.horasEstimadas)+'h '+String(Math.round((r.horasEstimadas%1)*60)).padStart(2,'0')+'min');
+  if(incluyeItems.length){msg+='✅ *Incluye:*\n'+incluyeItems.join('\n')+'\n';}
+  var notas=(gel('ppto-notas')||{}).value||'';
+  if(notas)msg+='\n📝 '+notas+'\n';
+  msg+='\n¡Te esperamos! 💖\n';
+  if(cfg.telefono)msg+='📲 '+cfg.telefono;
+  if(phone){window.open('https://wa.me/'+phone.replace(/[^0-9+]/g,'')+'?text='+encodeURIComponent(msg),'_blank');}
+  else{navigator.clipboard.writeText(msg).then(function(){showToast('Presupuesto copiado al portapapeles','success');});}
+}
+
+function pptoImprimir(){
+  var r=calcularPresupuesto();
+  var clientaId=(gel('ppto-clienta')||{}).value||'';
+  var clientaNombre='';
+  if(clientaId){var clientas=DB.get('clientas')||[];var cli=clientas.find(function(c){return c.id===clientaId;});if(cli)clientaNombre=cli.nombre;}
+  else{clientaNombre=(gel('ppto-nombre-nuevo')||{}).value||'Nuevo cliente';}
+  var cfg=getCfg();
+  var tipoNombres={acrilicas:'Uñas Acrílicas',gel:'Uñas de Gel',encapsulado:'Encapsulado',polygel:'Polygel',relleno:'Relleno',natural:'Diseño en Natural',retiro:'Retiro'};
+  var formaNombres={cuadrada:'Cuadrada',redonda:'Redonda',coffin:'Coffin/Stiletto',almendra:'Almendra',ovalada:'Ovalada'};
+  var pw=window.open('','_blank','width=400,height=600');
+  pw.document.write('<html><head><title>Presupuesto</title><style>body{font-family:Arial,sans-serif;padding:20px;font-size:14px;color:#222}h1{text-align:center;font-size:18px}table{width:100%;border-collapse:collapse;margin:12px 0}td,th{padding:6px 8px;border-bottom:1px solid #ddd;text-align:left}th{font-size:11px;text-transform:uppercase;color:#888}.total{font-size:24px;font-weight:700;text-align:center;margin:16px 0;color:#D63384}</style></head><body>');
+  pw.document.write('<h1>💅 '+(cfg.nombre||'Nail Studio')+'</h1>');
+  pw.document.write('<p><strong>Cliente:</strong> '+clientaNombre+'</p>');
+  pw.document.write('<p><strong>Fecha:</strong> '+todayStr()+'</p>');
+  pw.document.write('<table><tr><th>Servicio</th><th>Detalle</th></tr>');
+  pw.document.write('<tr><td>Tipo</td><td>'+(tipoNombres[r.tipoServicio]||'')+'</td></tr>');
+  pw.document.write('<tr><td>Largo</td><td>'+_pptoLargo+'</td></tr>');
+  pw.document.write('<tr><td>Forma</td><td>'+(formaNombres[_pptoForma]||'')+'</td></tr></table>');
+  if(_pptoExtras.length){pw.document.write('<p><strong>Extras:</strong> '+_pptoExtras.map(function(eid){var ex=EXTRAS_LIST.find(function(x){return x.id===eid;});return ex?ex.nombre:eid;}).join(', ')+'</p>');}
+  pw.document.write('<table><tr><th>Concepto</th><th>Monto</th></tr>');
+  pw.document.write('<tr><td>Materiales</td><td>'+fmt$(r.costoMateriales)+'</td></tr>');
+  pw.document.write('<tr><td>Mano de obra ('+r.horasEstimadas.toFixed(1)+'h)</td><td>'+fmt$(r.costoLabor)+'</td></tr>');
+  pw.document.write('<tr><td>Extras</td><td>'+fmt$(r.totalExtras)+'</td></tr>');
+  pw.document.write('<tr><td>Subtotal</td><td>'+fmt$(r.subtotal)+'</td></tr>');
+  pw.document.write('<tr><td>Margen ('+r.margen+'%)</td><td>'+fmt$(r.totalConMargen-r.subtotal)+'</td></tr></table>');
+  pw.document.write('<div class="total">TOTAL: '+fmt$(r.totalConMargen)+'</div>');
+  pw.document.write('<p style="text-align:center;color:#888;font-size:11px">≈ Bs '+(r.totalConMargen*(cfg.tasa||40)).toFixed(2)+'</p>');
+  pw.document.write('</body></html>');pw.document.close();
+  setTimeout(function(){pw.print();},300);
+}
+
+function pptoNuevaCitaDesdePpto(){
+  var clientaId=(gel('ppto-clienta')||{}).value||'';
+  if(!clientaId){
+    var nombre=(gel('ppto-nombre-nuevo')||{}).value||'';
+    if(!nombre){showToast('Ingresa el nombre de la clienta','danger');return;}
+    var tel=(gel('ppto-tel-nuevo')||{}).value||'';
+    var clientas=DB.get('clientas')||[];
+    var nueva={id:uid(),nombre:nombre,telefono:tel,notas:'',ts:Date.now()};
+    clientas.push(nueva);DB.set('clientas',clientas);clientaId=nueva.id;
+    showToast('Clienta creada: '+nombre,'success');
+  }
+  pptoGuardar();
+  showPage('agenda',null);
+  setTimeout(function(){
+    abrirModalCita(todayStr());
+    setTimeout(function(){
+      var citaCli=gel('cita-clienta');if(citaCli)citaCli.value=clientaId;
+      mostrarTelClientaCita();
+      var r=calcularPresupuesto();
+      var notasEl=gel('cita-nota');if(notasEl)notasEl.value='Desde presupuesto: '+(r.tipoServicio||'')+' - '+_pptoForma+' '+_pptoLargo;
+      var precioEl=gel('cita-precio');if(precioEl)precioEl.value=r.totalConMargen.toFixed(2);
+    },100);
+  },200);
+}
+
+function pptoVerHistorial(){
+  var all=DB.get('ns_presupuestos')||[];
+  var body=gel('ppto-hist-body');
+  if(!body)return;
+  if(!all.length){
+    body.innerHTML='<div class="empty-state"><span class="empty-state-icon">📋</span><div class="empty-state-text">Sin presupuestos guardados</div></div>';
+    openModal('modalPptoHist');return;
+  }
+  var tipoNombres={acrilicas:'Uñas Acrílicas',gel:'Uñas de Gel',encapsulado:'Encapsulado',polygel:'Polygel',relleno:'Relleno',natural:'Diseño en Natural',retiro:'Retiro'};
+  body.innerHTML=all.slice().reverse().slice(0,30).map(function(p){
+    return'<div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;cursor:pointer" onclick="pptoCargarHistorial(\''+p.id+'\')"><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text)">'+(p.clientaNombre||'—')+'</div><div style="font-size:11px;color:var(--text3)">'+(tipoNombres[p.tipoServicio]||p.tipoServicio)+' — '+p.largo+' — '+p.forma+'</div><div style="font-size:10px;color:var(--text3)">'+p.fecha+'</div></div><div style="text-align:right"><div style="font-family:var(--mono);font-size:15px;font-weight:700;color:var(--gold)">'+fmt$(p.resultado?p.resultado.totalConMargen:0)+'</div><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();pptoEliminar(\''+p.id+'\')" style="margin-top:4px">🗑️</button></div></div>';
+  }).join('');
+  openModal('modalPptoHist');
+}
+
+function pptoCargarHistorial(id){
+  var all=DB.get('ns_presupuestos')||[];
+  var p=all.find(function(x){return x.id===id;});
+  if(!p)return;
+  closeModal('modalPptoHist');
+  if(p.clientaId){var sel=gel('ppto-clienta');if(sel)sel.value=p.clientaId;}
+  var tipo=gel('ppto-tipo');if(tipo)tipo.value=p.tipoServicio;
+  var sistema=gel('ppto-sistema');if(sistema)sistema.value=p.sistema;
+  _pptoLargo=p.largo||'M';_pptoForma=p.forma||'coffin';
+  _pptoExtras=(p.extras||[]).slice();_pptoMatsSel=(p.materiales||[]).slice();_pptoMatsSel._tipo=p.tipoServicio;
+  document.querySelectorAll('#ppto-largo-cards .ppto-card').forEach(function(c){c.classList.toggle('active',c.getAttribute('data-val')===_pptoLargo);});
+  document.querySelectorAll('#ppto-forma-cards .ppto-card').forEach(function(c){c.classList.toggle('active',c.getAttribute('data-val')===_pptoForma);});
+  var notas=gel('ppto-notas');if(notas)notas.value=p.notas||'';
+  var refUrl=gel('ppto-ref-url');if(refUrl)refUrl.value=p.refImg||'';
+  var margen=gel('ppto-margen');if(margen)margen.value=p.resultado?p.resultado.margen:30;
+  pptoPreviewRef();renderPresupuesto();showPage('presupuesto',null);
+  showToast('Presupuesto cargado','info');
+}
+
+function pptoEliminar(id){
+  if(!confirm('¿Eliminar este presupuesto?'))return;
+  var all=DB.get('ns_presupuestos')||[];
+  DB.set('ns_presupuestos',all.filter(function(x){return x.id!==id;}));
+  pptoVerHistorial();showToast('Presupuesto eliminado','info');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MIS COSTOS (My Costs)
+// ═══════════════════════════════════════════════════════════════════
+
+var _mcCatFilter='';
+var _mcMatEditId='';
+
+function renderMisCostos(){
+  var config=getCfg();
+  var tarifa=config.tarifaHora||5;
+  var tarifaInput=gel('mc-tarifa-input');var tarifaDisplay=gel('mc-tarifa-display');
+  if(tarifaInput)tarifaInput.value=tarifa;if(tarifaDisplay)tarifaDisplay.textContent=fmt$(tarifa)+'/hora';
+  mcCalcTarifa();mcRender();
+}
+
+function mcActualizarTarifa(){
+  var v=parseFloat((gel('mc-tarifa-input')||{}).value)||0;
+  var d=gel('mc-tarifa-display');if(d)d.textContent=fmt$(v)+'/hora';
+}
+
+function mcGuardarTarifa(){
+  var v=parseFloat((gel('mc-tarifa-input')||{}).value)||5;
+  var cfg=getCfg();cfg.tarifaHora=v;saveCfg(cfg);
+  showToast('Tarifa actualizada: '+fmt$(v)+'/hora','success');
+}
+
+function mcCalcTarifa(){
+  var meta=parseFloat((gel('mc-calc-meta')||{}).value)||0;
+  var dias=parseFloat((gel('mc-calc-dias')||{}).value)||24;
+  var horas=parseFloat((gel('mc-calc-horas')||{}).value)||8;
+  var result=0;if(dias>0&&horas>0)result=meta/(dias*horas);
+  var el=gel('mc-calc-result');if(el)el.textContent='Tu tarifa sugerida: '+fmt$(result)+'/hora';
+}
+
+function mcFiltrarCat(cat,btn){
+  _mcCatFilter=cat;
+  document.querySelectorAll('.mc-cat-tab').forEach(function(t){t.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  mcRender();
+}
+
+function mcRender(){
+  var materiales=DB.get('ns_materiales_costos')||[];
+  var buscar=((gel('mc-buscar')||{}).value||'').toLowerCase();
+  var filtered=materiales.filter(function(m){
+    if(_mcCatFilter&&m.categoria!==_mcCatFilter)return false;
+    if(buscar&&m.nombre.toLowerCase().indexOf(buscar)<0)return false;
+    return true;
+  });
+  var grid=gel('mc-materiales-grid');if(!grid)return;
+  if(!filtered.length){grid.innerHTML='<div class="empty-state" style="grid-column:1/-1"><span class="empty-state-icon">🧴</span><div class="empty-state-text">Sin materiales en esta categoría</div></div>';return;}
+  grid.innerHTML=filtered.map(function(m){
+    var costoPorClienta=m.rendimiento>0?(m.precio/m.rendimiento):0;
+    var stockPct=m.rendimiento>0?Math.max(0,Math.min(100,((m.restantes||0)/m.rendimiento)*100)):0;
+    var stockColor=stockPct>50?'var(--success)':stockPct>20?'var(--warn)':'var(--danger)';
+    var stockLabel=stockPct>50?'Disponible':stockPct>20?'Bajo':'Repuesto';
+    return'<div class="mc-mat-card"><div class="mc-mat-name">'+m.nombre+'</div><div class="mc-mat-cat">'+m.categoria+'</div><div class="mc-mat-details"><span>Precio: '+fmt$(m.precio)+'</span><span>Rinde: '+(m.rendimiento||'?')+' clientas</span></div><div class="mc-mat-details"><span>Unidad: '+(m.unidad||'—')+'</span><span>Usos restantes: '+(m.restantes||'?')+'</span></div><div class="mc-mat-costo">'+fmt$(costoPorClienta)+' /clienta</div><div class="mc-mat-stock"><span style="color:'+stockColor+';font-weight:600;min-width:55px">'+stockLabel+'</span><div class="stock-bar"><div class="stock-fill" style="width:'+stockPct+'%;background:'+stockColor+'"></div></div><span>'+Math.round(stockPct)+'%</span></div><div class="mc-mat-actions"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="mcEditarMaterial(\''+m.id+'\')">✏️ Editar</button><button class="btn btn-ghost btn-sm" onclick="mcRestockMaterial(\''+m.id+'\')">🔄 Restock</button></div></div>';
+  }).join('');
+}
+
+function mcAbrirAgregar(){
+  _mcMatEditId='';
+  gel('mat-modal-titulo').textContent='➕ Agregar Material';
+  gel('mat-edit-id').value='';gel('mat-nombre').value='';gel('mat-categoria').value='Polvos';
+  gel('mat-precio').value='';gel('mat-unidad').value='unidad';
+  gel('mat-rendimiento').value='';gel('mat-restantes').value='';
+  gel('mat-costo-preview').textContent='$0.00';gel('mat-btn-delete').style.display='none';
+  openModal('modalMaterial');
+}
+
+function mcEditarMaterial(id){
+  var materiales=DB.get('ns_materiales_costos')||[];
+  var m=materiales.find(function(x){return x.id===id;});if(!m)return;
+  _mcMatEditId=id;
+  gel('mat-modal-titulo').textContent='✏️ Editar Material';
+  gel('mat-edit-id').value=id;gel('mat-nombre').value=m.nombre||'';
+  gel('mat-categoria').value=m.categoria||'Polvos';gel('mat-precio').value=m.precio||'';
+  gel('mat-unidad').value=m.unidad||'unidad';gel('mat-rendimiento').value=m.rendimiento||'';
+  gel('mat-restantes').value=m.restantes!==undefined?m.restantes:'';
+  gel('mat-btn-delete').style.display='inline-flex';
+  mcPreviewCosto();openModal('modalMaterial');
+}
+
+function mcPreviewCosto(){
+  var precio=parseFloat(gel('mat-precio').value)||0;
+  var rend=parseInt(gel('mat-rendimiento').value)||1;
+  gel('mat-costo-preview').textContent=fmt$(rend>0?precio/rend:0);
+}
+
+document.addEventListener('input',function(e){
+  if(e.target&&(e.target.id==='mat-precio'||e.target.id==='mat-rendimiento'))mcPreviewCosto();
+});
+
+function mcGuardarMaterial(){
+  var id=gel('mat-edit-id').value||'mat_'+uid();
+  var nombre=(gel('mat-nombre').value||'').trim();
+  var categoria=gel('mat-categoria').value;
+  var precio=parseFloat(gel('mat-precio').value)||0;
+  var unidad=gel('mat-unidad').value;
+  var rendimiento=parseInt(gel('mat-rendimiento').value)||1;
+  var restantesInput=gel('mat-restantes').value;
+  var restantes=restantesInput!==''?parseInt(restantesInput):rendimiento;
+  if(!nombre){showToast('Ingresa el nombre del material','danger');return;}
+  if(precio<=0){showToast('Ingresa el precio','danger');return;}
+  var materiales=DB.get('ns_materiales_costos')||[];
+  var idx=-1;for(var i=0;i<materiales.length;i++){if(materiales[i].id===id){idx=i;break;}}
+  var mat={id:id,nombre:nombre,categoria:categoria,precio:precio,unidad:unidad,rendimiento:rendimiento,restantes:restantes};
+  if(idx>=0)materiales[idx]=mat;else materiales.push(mat);
+  DB.set('ns_materiales_costos',materiales);closeModal('modalMaterial');mcRender();
+  showToast('Material guardado','success');_pptoMatsSel=[];_pptoMatsSel._tipo='';
+}
+
+function mcEliminarMaterial(){
+  if(!confirm('¿Eliminar este material?'))return;
+  var id=gel('mat-edit-id').value;
+  var materiales=DB.get('ns_materiales_costos')||[];
+  DB.set('ns_materiales_costos',materiales.filter(function(m){return m.id!==id;}));
+  closeModal('modalMaterial');mcRender();showToast('Material eliminado','info');
+}
+
+function mcRestockMaterial(id){
+  var materiales=DB.get('ns_materiales_costos')||[];
+  var m=materiales.find(function(x){return x.id===id;});if(!m)return;
+  m.restantes=m.rendimiento;DB.set('ns_materiales_costos',materiales);mcRender();
+  showToast('Restock completado: '+m.nombre,'success');
+}
+
+function mcDecrementarMaterialesPorServicio(tipoServicio){
+  var matIds=MATS_POR_SERVICIO[tipoServicio];if(!matIds||!matIds.length)return;
+  var materiales=DB.get('ns_materiales_costos')||[];
+  var changed=false;
+  matIds.forEach(function(mid){
+    for(var i=0;i<materiales.length;i++){
+      if(materiales[i].id===mid){if(materiales[i].restantes>0){materiales[i].restantes--;changed=true;}break;}
+    }
+  });
+  if(changed)DB.set('ns_materiales_costos',materiales);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ENHANCED WHATSAPP RECEIPT
+// ═══════════════════════════════════════════════════════════════════
+
+function _enviarReciboWhatsApp(datos){
+  if(!datos||!datos.clienta||!datos.clienta.telefono){showToast('La clienta no tiene telefono registrado','warn');return;}
+  var cfg=getCfg();
+  var msg='💅 *'+(cfg.nombre||'Nail Studio')+'* — Recibo de Cobro\n';
+  msg+='─────────────────\n';
+  msg+='👤 *Cliente:* '+datos.clienta.nombre+'\n';
+  msg+='📅 *Fecha:* '+datos.fecha+'\n\n';
+  if(datos.tipo==='cita'&&datos.servicio){
+    msg+='📋 *Servicio:*\n• '+datos.servicio.emoji+' '+datos.servicio.nombre+'\n';
+  }
+  if(datos.tipo==='pos'&&datos.items){
+    msg+='📋 *Servicios:*\n';
+    datos.items.forEach(function(it){msg+='• '+it.emoji+' '+it.nombre+' x'+it.qty+' = '+fmt$(it.precio*it.qty)+'\n';});
+  }
+  msg+='\n💰 *Total: '+fmt$(datos.monto)+'*\n';
+  msg+='≈ Bs '+(datos.monto*(cfg.tasa||40)).toFixed(2)+'\n';
+  msg+='💳 *Metodo:* '+datos.metodo+'\n';
+  msg+='─────────────────\n';
+  msg+='¡Gracias por tu visita! 💅💖\n';
+  if(cfg.telefono)msg+='📲 '+cfg.telefono;
+  var phone=datos.clienta.telefono.replace(/[^0-9+]/g,'');
+  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
+}
+
 // ── STARTUP ──
 (function(){
   var today=todayStr();
@@ -4757,6 +5782,8 @@ function cerrarQRScanner(){
   var htEl=document.getElementById('hist-hasta');
   if(hfEl)hfEl.value=today.slice(0,7)+'-01';
   if(htEl)htEl.value=today;
+  // Initialize preset materials
+  mcInitMateriales();
   // Cerrar sidebar al tocar fuera en móvil al navegar
   document.querySelectorAll('.nav-item').forEach(function(ni){
     ni.addEventListener('click',function(){
