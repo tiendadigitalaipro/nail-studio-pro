@@ -3202,6 +3202,27 @@ function _verificarFirmada(code){
   return{valid:false,msg:'❌ Formato de código no reconocido.'};
 }
 
+// ── MOTOR CENTRAL A2K (respaldo cuando la firma local no reconoce el código) ──
+// Códigos emitidos desde WhatsApp/otro dispositivo o de formato antiguo no tienen
+// forma de validarse solo con matemática local — este es el segundo intento antes
+// de rechazar el código. No reemplaza ni modifica la validación local existente.
+var A2K_ENGINE_URL = 'https://a2k-license-engine.shoppingelectronics3112.workers.dev';
+async function verificarCodigoCentral(code) {
+  try {
+    var r = await fetch(A2K_ENGINE_URL + '/validar?key=' + encodeURIComponent(code) + '&product=nail');
+    var d = await r.json();
+    if (d && d.valid) {
+      var venceEn = null;
+      if (d.type === 'demo' && d.daysLeft != null) {
+        var v = new Date(); v.setDate(v.getDate() + d.daysLeft); v.setHours(23,59,59,999);
+        venceEn = v.toISOString();
+      }
+      return { valid: true, tipo: d.type === 'demo' ? 'DEMO' : 'PRO', venceEn: venceEn };
+    }
+  } catch (e) { /* sin internet u motor no disponible — no bloquea, cae a inválido */ }
+  return { valid: false };
+}
+
 // ── INIT IRON LOCK ──
 function _ironLockInit(){
   var devId=getDeviceId();
@@ -3259,7 +3280,7 @@ function _mostrarLoginForm(cuenta,devId){
 }
 
 // ── REGISTRO (primera vez) ──
-function registrarCuenta(){
+async function registrarCuenta(){
   var salon=(gel('reg-salon')||{}).value||'';
   var usuario=(gel('reg-usuario')||{}).value||'';
   var pw=(gel('reg-pw')||{}).value||'';
@@ -3274,14 +3295,25 @@ function registrarCuenta(){
   // Validar licencia si se ingresó
   if(lic.trim()){
     var r=_verificarFirmada(lic);
-    if(!r.valid){if(msg){msg.style.color='var(--danger)';msg.innerHTML=r.msg;}return;}
+    if(!r.valid){
+      // Firma local no lo reconoce — intentar contra el motor central A2K antes de rechazar
+      if(msg){msg.style.color='var(--text3)';msg.textContent='⏳ Verificando código...';}
+      var central=await verificarCodigoCentral(lic);
+      if(!central.valid){if(msg){msg.style.color='var(--danger)';msg.innerHTML=r.msg;}return;}
+      r={valid:true,tipo:central.tipo,master:false,deviceChanged:false,_central:true,venceEn:central.venceEn};
+    }
     // Guardar cuenta
     var cuenta={salon:salon.trim(),usuario:usuario.trim().toLowerCase(),pwHash:_hash(pw+_SIGN_SALT+'NSPW'),deviceId:getDeviceId(),ts:Date.now()};
     DB.set('ns_cuenta',cuenta);
     // Guardar config con nombre del salón
     var cfg=getCfg(); cfg.nombre=salon.trim(); saveCfg(cfg);
     // Activar licencia
-    if(r.tipo==='DEMO'){_activarComoDemo(lic);}
+    if(r.tipo==='DEMO'){
+      if(r._central){
+        var licDemo={code:lic.trim().toUpperCase(),tipo:'DEMO',device:getDeviceId(),activado:Date.now(),expiry:r.venceEn?new Date(r.venceEn).getTime():(Date.now()+5*24*60*60*1000)};
+        DB.set('licencia_activa',licDemo);_desbloquearApp(licDemo);
+      } else {_activarComoDemo(lic);}
+    }
     else {
       var licObj={code:lic.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master,reactivacion:!!r.deviceChanged};
       DB.set('licencia_activa',licObj);
@@ -3349,13 +3381,24 @@ function iniciarSesion(){
   _desbloquearApp(saved);
 }
 
-function reactivarLicenciaLogin(){
+async function reactivarLicenciaLogin(){
   var lic=(gel('reactivar-lic')||{}).value||'';
   var msg=gel('login-msg');
   if(!lic.trim()){if(msg)msg.textContent='Ingresa un código.';return;}
   var r=_verificarFirmada(lic);
-  if(!r.valid){if(msg){msg.style.color='var(--danger)';msg.innerHTML=r.msg;}return;}
-  if(r.tipo==='DEMO'){_activarComoDemo(lic);}
+  if(!r.valid){
+    // Firma local no lo reconoce — intentar contra el motor central A2K antes de rechazar
+    if(msg){msg.style.color='var(--text3)';msg.textContent='⏳ Verificando código...';}
+    var central=await verificarCodigoCentral(lic);
+    if(!central.valid){if(msg){msg.style.color='var(--danger)';msg.innerHTML=r.msg;}return;}
+    r={valid:true,tipo:central.tipo,master:false,deviceChanged:false,_central:true,venceEn:central.venceEn};
+  }
+  if(r.tipo==='DEMO'){
+    if(r._central){
+      var licDemo={code:lic.trim().toUpperCase(),tipo:'DEMO',device:getDeviceId(),activado:Date.now(),expiry:r.venceEn?new Date(r.venceEn).getTime():(Date.now()+5*24*60*60*1000)};
+      DB.set('licencia_activa',licDemo);_desbloquearApp(licDemo);
+    } else {_activarComoDemo(lic);}
+  }
   else{
     var licObj={code:lic.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master,reactivacion:!!r.deviceChanged};
     DB.set('licencia_activa',licObj);_desbloquearApp(licObj);
@@ -3366,13 +3409,25 @@ function reactivarLicenciaLogin(){
 }
 
 // ── ACTIVAR PRO o DEMO ──
-function activarLicencia(){
+async function activarLicencia(){
   var code=(gel('lock-code')||{}).value||'';
   var msg=gel('lock-msg');
   if(!code.trim()){if(msg)msg.textContent='Ingresa un código de licencia.';return;}
   var r=_verificarFirmada(code);
-  if(!r.valid){if(msg)msg.innerHTML='<span style="color:var(--danger)">'+r.msg+'</span>';return;}
-  if(r.tipo==='DEMO'){_activarComoDemo(code);return;}
+  if(!r.valid){
+    // Firma local no lo reconoce — intentar contra el motor central A2K antes de rechazar
+    if(msg)msg.innerHTML='<span style="color:var(--text3)">⏳ Verificando código...</span>';
+    var central=await verificarCodigoCentral(code);
+    if(!central.valid){if(msg)msg.innerHTML='<span style="color:var(--danger)">'+r.msg+'</span>';return;}
+    r={valid:true,tipo:central.tipo,master:false,deviceChanged:false,_central:true,venceEn:central.venceEn};
+  }
+  if(r.tipo==='DEMO'){
+    if(r._central){
+      var licDemo={code:code.trim().toUpperCase(),tipo:'DEMO',device:getDeviceId(),activado:Date.now(),expiry:r.venceEn?new Date(r.venceEn).getTime():(Date.now()+5*24*60*60*1000)};
+      DB.set('licencia_activa',licDemo);_desbloquearApp(licDemo);
+    } else {_activarComoDemo(code);}
+    return;
+  }
   // PRO
   var lic={code:code.trim().toUpperCase(),tipo:'PRO',device:getDeviceId(),activado:Date.now(),master:!!r.master,reactivacion:!!r.deviceChanged};
   DB.set('licencia_activa',lic);
